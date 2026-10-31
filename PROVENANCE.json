@@ -1,4 +1,5 @@
 {
+  "destination_repository": "HyperGAN/cascade-particle-sliders",
   "excluded_product_files": [
     "RETURN-VALIDATION.md",
     "VALIDATION.md",
@@ -16,19 +17,19 @@
       "source_sha256": "4e5e03630a4dc03afbc09f370d498d5ce88434a324cf7af6399914fed53a7330"
     },
     {
-      "adjustment": "repository-root installation/test paths and standalone provenance wording",
+      "adjustment": "repository-root paths, standalone lineage and reviewed modern-core dependency/admission documentation",
       "byte_identical": false,
       "exported_path": "README.md",
-      "exported_sha256": "f413fb232c1c9c7df31650d2cca56be46fc9c10356801404496cc19c41c6fb7e",
+      "exported_sha256": "aeb48deb770c6856acbecd4c0adacd823de2eaa8c409397860068aba01b51100",
       "source_blob": "a7c914f4988daac8f96e0b75a5a4a23ead491a16",
       "source_path": "conceptmod/cascade-shared/README.md",
       "source_sha256": "670551fefc7a46c2d3b389581a07eabb1a59f57b3862901491deb3f6ad5e6836"
     },
     {
-      "adjustment": "declare MIT SPDX identifier and package the unchanged original LICENSE",
+      "adjustment": "declare MIT SPDX identifier and package the unchanged original LICENSE; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
       "byte_identical": false,
       "exported_path": "pyproject.toml",
-      "exported_sha256": "9d5eb941a2d841f6132ae8508acfa03e6197da6d6a1116339771d3045b1dbc9d",
+      "exported_sha256": "e25de694f37877d914b46472adf0eebf49efdbe5b5606ab72da08ab5f0c0a728",
       "source_blob": "3ae0aa853f72d9b526fdb463a08c08f34d5d84b2",
       "source_path": "conceptmod/cascade-shared/pyproject.toml",
       "source_sha256": "bb58ad28775f3ba83defd64411f8e6e00243d14c7215f48361fb835eeb56d67c"
@@ -43,19 +44,19 @@
       "source_sha256": "d83aa10fed417e7948217ab29755ac7b244dab93ce5a5d695100745392745802"
     },
     {
-      "adjustment": "none",
-      "byte_identical": true,
+      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+      "byte_identical": false,
       "exported_path": "src/particle_sliders_cascade/backend.py",
-      "exported_sha256": "3aea0010d381c1bb989a8423164f0435a7b80f10c1d46e49a1ed63a6308ef946",
+      "exported_sha256": "779dfc6920c0db170fb18b6367589819211d723dfdb4db8b38c29f833d76affe",
       "source_blob": "68a9f68e9a530c2be315327f2982b70a20ada48e",
       "source_path": "conceptmod/cascade-shared/src/particle_sliders_cascade/backend.py",
       "source_sha256": "3aea0010d381c1bb989a8423164f0435a7b80f10c1d46e49a1ed63a6308ef946"
     },
     {
-      "adjustment": "none",
-      "byte_identical": true,
+      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+      "byte_identical": false,
       "exported_path": "src/particle_sliders_cascade/core-lock.json",
-      "exported_sha256": "0897c26a1a3d73c9e6daa99b3fa8b21f2e3dc6675189681a41f74dc8e941233b",
+      "exported_sha256": "9332a438a90d1888a24de0f757e753342f9830ab35f89a35e0009ef5033a4f36",
       "source_blob": "282353fa52002e2f8ed4a46dc37994b615412197",
       "source_path": "conceptmod/cascade-shared/src/particle_sliders_cascade/core-lock.json",
       "source_sha256": "0897c26a1a3d73c9e6daa99b3fa8b21f2e3dc6675189681a41f74dc8e941233b"
@@ -79,10 +80,10 @@
       "source_sha256": "94faddc89feea8d0cdf65ac85797f956d6cdf65922004a1ffb1f7ea7ae18fbed"
     },
     {
-      "adjustment": "none",
-      "byte_identical": true,
+      "adjustment": "explicit new active a794 cohort name; no previous packet metadata altered",
+      "byte_identical": false,
       "exported_path": "tiny-config.json",
-      "exported_sha256": "e4ad4810d8435825b1e84d2d71d80aaae81b2998c1beb7bf1fd28ec0060b9abe",
+      "exported_sha256": "6feae8812e3ddd55ec66a01f634c5f4a478d2c67f77640c7049a3fc230bb7a41",
       "source_blob": "bc5fa6fb067f5593f206e3aca3957b74305f42b2",
       "source_path": "conceptmod/cascade-shared/tiny-config.json",
       "source_sha256": "e4ad4810d8435825b1e84d2d71d80aaae81b2998c1beb7bf1fd28ec0060b9abe"
@@ -100,20 +101,34 @@
   "generated_file_rationale": {
     "EXTRACTION.md": "standalone boundaries, dependency/history policy and review plan",
     "MANIFEST.in": "include license, provenance, extraction documentation, tiny config and reviewed tests in sdist",
+    "MODERN-CORE.md": "active a794 core cohort install instructions, identity impact and bounded test evidence",
     "PROVENANCE.json": "explicit source/blob/path allowlist and byte identities"
   },
   "generated_files": [
     "PROVENANCE.json",
     "EXTRACTION.md",
-    "MANIFEST.in"
+    "MANIFEST.in",
+    "MODERN-CORE.md"
   ],
   "historical_model_files_imported": [],
   "history": "clean allowlisted source export; no grafted or mirrored history",
   "license_rationale": "Original repository MIT LICENSE retained verbatim; dependency licenses remain with their distributions",
-  "proposed_destination": "HyperGAN/cascade-particle-sliders",
-  "publication": "not created or published; destination verification/publication held centrally",
+  "modern_core_migration": {
+    "core": "a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+    "identity_impact": "core closure and product source identity change; old packets refuse",
+    "previous_core": "4abc0eb03a4e3a84fc3e6d02734c13dc7e8ea231",
+    "scope": "active modern candidate only; no historical packet migration"
+  },
+  "public_extraction_anchor": {
+    "commit": "5005b63c80c012b675f5767f93e18f5f1ca9871d",
+    "pull_request": "https://github.com/HyperGAN/cascade-particle-sliders/pull/1",
+    "repository": "https://github.com/HyperGAN/cascade-particle-sliders",
+    "role": "public verifiable corrected-runtime extraction baseline; original local source lineage retained separately"
+  },
+  "publication": "public canonical repository with existing draft PR #1; active modern-core update subject to RETURN review",
   "schema": "cascade-standalone-source-export-v1",
   "source_commit": "11c51752179f24b7742545bee0541b2799ffb8b2",
+  "source_commit_availability": "original local lineage snapshot; not claimed fetchable from original remote",
   "source_product_root": "conceptmod/cascade-shared/",
   "source_repository": "https://github.com/HyperGAN/particle-sliders"
 }

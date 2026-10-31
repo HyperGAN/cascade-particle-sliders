@@ -2,14 +2,18 @@
 
 Source: `HyperGAN/particle-sliders` commit
 `11c51752179f24b7742545bee0541b2799ffb8b2`, product root
-`conceptmod/cascade-shared/`. Destination preparation:
-`HyperGAN/cascade-particle-sliders`.
+`conceptmod/cascade-shared/`. That commit is retained as local lineage, not a
+claim that it is fetchable from the original remote. The canonical public
+repository is `HyperGAN/cascade-particle-sliders`, draft PR #1. Public extraction
+anchor `5005b63c80c012b675f5767f93e18f5f1ca9871d` verifies the corrected runtime
+before this active modern-core update.
 
 This is a clean allowlisted source export. No history is grafted or mirrored.
 `PROVENANCE.json` maps each original repository path and Git blob to the new
 root-relative path, with original/exported SHA256 and any adjustment. Runtime
 Python, import names, HNDL graph, shared-core closure lock, tests and tiny config
-remain byte-identical. README installation/test paths are adapted to this root;
+were byte-identical at extraction. This active candidate subsequently advances
+only the core pin/closure identity; provenance records those changes. README installation/test paths are adapted to this root;
 package metadata now includes the original repository MIT license verbatim.
 
 The imported paths are the nine product files listed in that manifest plus the
@@ -27,7 +31,7 @@ a separate draft review branch until root completes its review/admission gates.
 The package retains namespace `particle_sliders_cascade` and both
 `cascade_stage_c` plugin entry points. Its shared dependency remains exactly
 `particle-sliders-core[hypergan-hndl]` at
-`4abc0eb03a4e3a84fc3e6d02734c13dc7e8ea231`, including existing generic
+`a794e3b4a8813b012f2c4faa3da82b78d4a90214`, including existing generic
 `particle_sliders.fibo_hndl` compatibility imports. PG 0.9.4, HyperGAN develop
 `5f368a3770cf5bdae0448995c9f76e29af8049f7` and HNDL 0.10.0 are unchanged.
 No shared mathematics, API, network optimization or domain policy is rewritten.
@@ -54,7 +58,14 @@ software support. EMA/resume/native-only inference and rejection/cleanup/RNG
 contracts remain the reviewed product contracts. Entirely zero-guidance training
 is rejected; mixed zero-guidance rows remain frozen-negative controls.
 
-Core admission and centralized GPU/native qualification remain pending. No GPU
+The shared core has software-fixture qualification; product-specific centralized
+GPU/native qualification remains pending. No GPU
 job, full-model training, release, deployment or merge is authorized by this
 source extraction. The original embedded paths remain until replacement is
 verified. Root owns Claude actual-source/RETURN review and final decisions.
+
+The a794 active cohort intentionally changes source/closure identity. Genuine
+4abc training and EMA inference packets are refused rather than relabeled.
+Old cohorts retain their original loaders and packet metadata; no compatibility
+or migration across this core change is claimed. Synthetic core qualification
+does not admit a pretrained Cascade model, Stage B/A or GPU model execution.

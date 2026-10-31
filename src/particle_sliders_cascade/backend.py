@@ -24,7 +24,7 @@ from particle_sliders.response import ResponseBackend, ResponseCapabilities
 NAME = 'cascade_stage_c'
 PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v2'
 GRAPH = Path(__file__).with_name('lora.hndl')
-CORE_COMMIT = '4abc0eb03a4e3a84fc3e6d02734c13dc7e8ea231'
+CORE_COMMIT = 'a794e3b4a8813b012f2c4faa3da82b78d4a90214'
 CORE_LOCK = Path(__file__).with_name('core-lock.json')
 FEATURE_POLICY = dict(version='cascade-unit-ratio-critic-v2', time_coordinate='native ratio r in [0,1]',
                       shared_helper_view='timestep=1000*r for features only; native row unchanged')

@@ -7,11 +7,14 @@ The historical trainer remains in the original repository. Its objective,
 configuration, environment and artifact names are unchanged. Use a new
 environment and cohort/output directory. See `PROVENANCE.json` and `EXTRACTION.md`.
 
-**Draft dependency admission:** the package pins core candidate
-`4abc0eb03a4e3a84fc3e6d02734c13dc7e8ea231` from draft PR #148, PG 0.9.4,
+**Modern candidate dependency:** the package pins reviewed shared core
+`a794e3b4a8813b012f2c4faa3da82b78d4a90214`, PG 0.9.4,
 HyperGAN develop `5f368a3770cf5bdae0448995c9f76e29af8049f7`, HNDL 0.10.0.
-Core lifecycle corrections/admission remain with the core owner. This is a tested
-candidate integration, not permission to finalize that core pin or release it.
+The shared core has CPU and bounded synthetic CUDA software-fixture qualification.
+This product still requires its own review/native qualification; no full-model or
+GPU-quality admission or release is implied. Older source cohorts retain their
+original packets and loader. The recursive lock/source identity change refuses
+old preview packets; no metadata relabeling or automatic migration is provided.
 
 The new cohort is an adapter-only positive-teacher GAN. Shared
 `ConditionalPG09` owns adversarial mathematics, regularization, optimizers and
@@ -80,7 +83,7 @@ from particle_sliders.response import open_response
 from particle_sliders.inference import open_inference
 from particle_sliders_cascade.backend import fixture_rows
 
-config = SessionConfig('cascade_stage_c', 'new-cascade-cpu-cohort',
+config = SessionConfig('cascade_stage_c', 'new-cascade-cpu-core-a794',
                        dummy=True, steps=4, ema_decay=.9)
 with open_response(config) as session:
     session.train(stop_after=2)

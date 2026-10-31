@@ -1,2 +1,2 @@
-include LICENSE README.md PROVENANCE.json EXTRACTION.md tiny-config.json
+include LICENSE README.md PROVENANCE.json EXTRACTION.md MODERN-CORE.md tiny-config.json
 recursive-include tests *.py
