@@ -64,3 +64,9 @@ Torch2.9.1+cu128 through a selective read-only dependency site; no competing
 product/core/PG distribution is exposed by that site. Exact core/HG VCS wheels
 were reused from their original pip cache with unmodified public origins.
 `pip check` passes. These checks do not qualify a real pretrained CUDA run.
+
+The first fresh-process CUDA fixture correctly refused resume because the tiny
+Diffusers constructor's unordered `_use_default_values` metadata differed across
+isolated Python processes. That failed attempt is retained. V3 now supplies every
+constructor option explicitly, leaving no implicit-default list; no old packet
+is sorted, rewritten or rebound. A fresh source-bound CUDA proof is required.

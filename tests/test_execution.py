@@ -23,6 +23,7 @@ def test_cpu_constructor_does_not_snapshot_or_initialize_visible_cuda(monkeypatc
     monkeypatch.setattr(torch.cuda, 'get_rng_state', lambda *args: pytest.fail('CPU path touched CUDA RNG'))
     monkeypatch.setattr(torch.cuda, 'device_count', lambda: pytest.fail('CPU path inspected CUDA devices'))
     model = b.tiny_model()
+    assert not model.config.get('_use_default_values', [])
     with open_response(SessionConfig(b.NAME, 'cpu-only', dummy=True), model=model) as session:
         assert session.game.backend.model_identity['execution_policy'] == e.execution_policy({})
         session.step()

@@ -183,10 +183,11 @@
     "PG_unchanged": "official release0.9.4",
     "scope": "Explicit execution identity, same native Stage C adapter-only response law; device-correct adapters/critic and scale-captured optional native checkpointing. Native CUDA/quality qualification requires fresh measured receipt.",
     "files": {
-      "src/particle_sliders_cascade/backend.py": "bd3e355d4c0e8aede4fbccb8419e12947f797bd0cd72b7fb5e2acb417f908f35",
+      "src/particle_sliders_cascade/backend.py": "f1ab4c495cd9bcf278673003e38e0ea7cc6ad2e4d6ee194a6f78848324cfd32c",
       "src/particle_sliders_cascade/execution.py": "a515c19a195cb41e116f828839243a916950c3f4e0644ce80562b06ddc766913",
-      "tests/test_execution.py": "7901d0ca1caa7d8f63e016c9cb3883944abe496ffb35d571434e23d721fa9161",
-      "NATIVE-CUDA.md": "0e61d4c7b09f6d2a3b422a43c1c1d9f8416d82f82a33bf2d4b7de1e53ca15f7e"
-    }
+      "tests/test_execution.py": "15ce4ad4ca4be96c81a04fd18903d86709ff4136aca5cb4deb4ad20efe1c7c88",
+      "NATIVE-CUDA.md": "35dab4b843a34d2548e7f5a7adc0f8f8780b829e44fa99cfdeb5309883593bea"
+    },
+    "tiny_constructor": "All public constructor arguments explicit, so no unordered implicit-default metadata. Prior fresh-process refusal retained; no packet rebinding."
   }
 }

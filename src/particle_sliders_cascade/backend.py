@@ -135,7 +135,9 @@ def tiny_model():
             down_blocks_repeat_mappers=(1,), up_blocks_repeat_mappers=(1,),
             block_types_per_layer=(('SDCascadeResBlock', 'SDCascadeTimestepBlock', 'SDCascadeAttnBlock'),),
             clip_text_in_channels=8, clip_text_pooled_in_channels=8, clip_image_in_channels=8,
-            clip_seq=2, dropout=0., timestep_conditioning_type=())
+            clip_seq=2, dropout=0., timestep_conditioning_type=(), patch_size=1,
+            effnet_in_channels=None, pixel_mapper_in_channels=None, kernel_size=3,
+            self_attn=True, switch_level=None)
 
 
 def fixture_rows():
