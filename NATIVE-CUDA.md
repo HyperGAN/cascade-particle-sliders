@@ -104,3 +104,33 @@ LR recommendation, longer matched screens and complete native Stage B/A
 image-quality comparisons remain pending. Search checkpoints do not add
 trained/published product controls. See the compact exact-source/data receipt
 [native-pretrained-response-proof-20261104.json](docs/native-pretrained-response-proof-20261104.json).
+
+
+## Pretrained native1024 mechanical proof
+
+The same runtime `17e9f7b` now passes the complete pretrained response proof at
+`[1,16,24,24]` fields / 1024-pixel geometry. A new stock50-step CFG4 corpus has
+18 training,18 development and6 no-edit fields; confirmation remains sealed.
+Actual initial full packets match across fresh processes, actual G/D updates
+change their leaves while the base stays exact, two uninterrupted updates equal
+one plus a fresh-process restore, and portable raw responses match all18
+held-out fields at strengths0/.5/1 without constructing training objects.
+All five phases completed and the24GiB reservation was released. The largest
+Torch allocation was15.478796GiB, with a23GiB allocator cap inside that total.
+
+This two-update probe uses G`.0012`, absolute D`.018`, no bank, and a128-update
+recipe horizon. Its equal-example pooled development relative SSE is`.9996815`
+(OFF is1); this small diagnostic result does not recommend a learning rate.
+A separate full native1024 sampler/StageB/A decode also produced recognizable
+brass-robot OFF and pixel-art teacher images in100.005seconds, peaking at
+16.354316GiB. Their scene/proportion changes do not establish preservation.
+
+The frozen worker additionally checks highest FP32 precision, reduction flags,
+TF32 environment overrides and the actual physical UUID. Those extra checks
+are not all enforced by the narrower public v3 runtime validator. Portable
+replay is verified under the exact frozen worker, not under arbitrary caller
+settings. Its successful guardian stayed alive throughout; subsequent workers
+must inherit physical/role lease FDs and compare all data bytes to original
+capture receipts at each phase entry. The archived v1 source was not changed
+in flight. See [the exact measured receipt](docs/native1024-pretrained-mechanics-20261104.json).
+Runtime, install requirements and historical artifacts are unchanged.

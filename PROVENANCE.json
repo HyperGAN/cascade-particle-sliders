@@ -190,5 +190,13 @@
     },
     "tiny_constructor": "All public constructor arguments explicit, so no unordered implicit-default metadata. Prior fresh-process refusal retained; no packet rebinding.",
     "review": "Read-only secondary review found CUDA-wide seeding; fixed with explicit CPU/owned-device generators and regression. Execution helper bytes bound in native identity."
+  },
+  "pretrained_native1024_mechanics_20261104": {
+    "runtime_source": "17e9f7b7c7b20b74b3a776df3ca54ac66e343a17",
+    "receipt": "docs/native1024-pretrained-mechanics-20261104.json",
+    "receipt_sha256": "ed18d35ec3d4b68dc2ea049b00180cca2e6cdd2b4dcad2997a3505b793a26ff2",
+    "runtime_changed": false,
+    "rate_recommended": false,
+    "trained_published_counts_changed": false
   }
 }
