@@ -75,3 +75,12 @@ Construction seeds the explicit CPU generator and, for the CUDA profile, only
 the owned CUDA0 generator within its RNG-restoration scope. It never uses
 `torch.manual_seed`, which would seed every visible accelerator. The regression
 refuses CPU paths that call CUDA-wide seeders.
+
+The final source passed a fresh-process tiny native CUDA software proof: actual
+G/D updates, direct teacher/OFF parity, full two-update state and metrics equal
+to one update plus fresh-process restore, immutable base, and raw inference at
+strengths0/.5/1 without constructing a game or critic. Torch allocation peaked
+at0.033GiB for this tiny random model under a2GiB role cap. The compact receipt
+is [native-cuda-software-proof-20261104.json](docs/native-cuda-software-proof-20261104.json).
+This result supplies software evidence for the profile; the real pretrained
+Stage C run still needs its own measured admission and qualification.
