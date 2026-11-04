@@ -82,5 +82,25 @@ to one update plus fresh-process restore, immutable base, and raw inference at
 strengths0/.5/1 without constructing a game or critic. Torch allocation peaked
 at0.033GiB for this tiny random model under a2GiB role cap. The compact receipt
 is [native-cuda-software-proof-20261104.json](docs/native-cuda-software-proof-20261104.json).
-This result supplies software evidence for the profile; the real pretrained
-Stage C run still needs its own measured admission and qualification.
+This result supplies software evidence for the profile. The separate pretrained
+raw-response proof below has its own data, memory and qualification scope.
+
+## Pretrained native256 raw-response proof
+
+The same runtime17e9f7b passed a real3.589B-parameter Stage C CUDA probe using
+the exact cached prior621fc2d and explicitly audited metadata view7ca32c2.
+At native fields[1,16,6,6] (256px), the frozen corpus contains18 training,
+18 development and6 no-edit fields from stock50-step DDPMWuerstchen/CFG4
+trajectories. Direct teacher/OFF parity, actual G/D updates, immutable base,
+fresh-process two updates versus one-plus-one complete state/metrics, and
+portable raw inference on18 development fields at strengths0/.5/1 all pass.
+Torch allocation peaked at13.633GiB under a20GiB admitted role. All owned
+processes and role locks were released on completion.
+
+The two-update diagnostic uses G=.0012,D=.018,no bank and a64-update
+recipe horizon. Development relative squared error is1.001309 versus OFF1,
+so it establishes execution rather than useful optimization. A production
+LR recommendation, longer matched screens and complete native Stage B/A
+image-quality comparisons remain pending. Search checkpoints do not add
+trained/published product controls. See the compact exact-source/data receipt
+[native-pretrained-response-proof-20261104.json](docs/native-pretrained-response-proof-20261104.json).

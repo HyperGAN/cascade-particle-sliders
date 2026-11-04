@@ -186,7 +186,7 @@
       "src/particle_sliders_cascade/backend.py": "c666d008409818e9a2ba7b918cd52c850fff9fd01faba0026a8351c6237fee00",
       "src/particle_sliders_cascade/execution.py": "a515c19a195cb41e116f828839243a916950c3f4e0644ce80562b06ddc766913",
       "tests/test_execution.py": "e2e7f83f503fe6a8c849658e7b429d2e1e564400e5e11cbebf78ad7af34c19cf",
-      "NATIVE-CUDA.md": "e503e9e96f2736eff4f9d8f969b980032323c40d0a823e7a1c8d3bffbd845a47"
+      "NATIVE-CUDA.md": "49f11d1b9d9c736f5e8d2ec90250934d349f87d70cc5240bd3c6d413b11332ad"
     },
     "tiny_constructor": "All public constructor arguments explicit, so no unordered implicit-default metadata. Prior fresh-process refusal retained; no packet rebinding.",
     "review": "Read-only secondary review found CUDA-wide seeding; fixed with explicit CPU/owned-device generators and regression. Execution helper bytes bound in native identity."

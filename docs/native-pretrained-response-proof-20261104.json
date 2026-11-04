@@ -1,0 +1,48 @@
+{
+  "status": "passed_native_raw_response_mechanics_and_unloaded",
+  "G": 0.0012,
+  "D": 0.018,
+  "bank": null,
+  "recipe_horizon": 64,
+  "updates": 2,
+  "rows": {
+    "train": 18,
+    "development": 18,
+    "no_edit": 6
+  },
+  "full_checkpoint_sha256": "19da7087b2551f75be99c486150a6e074783951f360e3050feee690e8c09e061",
+  "fresh_process_resume_exact": true,
+  "raw_portable_inference_18_fields_x3_strengths_exact": true,
+  "max_torch_allocated_gib": 13.632957458496094,
+  "raw_development_relative_SSE": 1.0013093669346504,
+  "owned_worker_pids_gone": [
+    1125661,
+    1131498,
+    1137472,
+    1141607,
+    1146830
+  ],
+  "native_role_lock_holders": [],
+  "cap_released_gib": 20,
+  "qualified_LR": false,
+  "complete_native_image_rendering": "pending",
+  "time_unix": 1793792299.2502553,
+  "scope": "Actual pretrained native256 Stage C raw-response/resource mechanics, no production LR or complete image quality qualification",
+  "runtime_commit": "17e9f7b7c7b20b74b3a776df3ca54ac66e343a17",
+  "core": "ddb41423bcefc1fe76cd94d0f9b367353b3ea137",
+  "particlegan": "official0.9.4 release330eb94",
+  "cached_weights_revision": "621fc2ddab5500e57079e716c15358a25b649090",
+  "metadata_revision": "7ca32c21c3b4d4e35bbb94fcfedfb4fa2259bd91",
+  "native_shape": [
+    1,
+    16,
+    6,
+    6
+  ],
+  "height": 256,
+  "width": 256,
+  "snapshot_provenance": "Audited mixed cache/metadata view; exact tensor payloads and all viewed load assets hashed. No claim that relocated metadata are original cached bytes.",
+  "frozen_probe_sha256": "d51c0ec9a6b2847a8e7f5935b033390a3b790373d52ec1b1b440df93cf47b081",
+  "oracle_controls": "actual per-field0/1/4 verified with FP64 comparisons",
+  "data_policy": "Stock50-step DDPMWuerstchen/CFG4 frozen neutral trajectories, positions5/25/45; train/dev/no-edit distinct. Confirmation texts not encoded."
+}
