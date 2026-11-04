@@ -59,9 +59,9 @@ memory and throughput must be measured before assigning a GPU budget.
 
 Installed CPU verification of this source: 52 tests pass with CUDA hidden,
 including exact continuation, native-only exports, signed checkpoint VJPs,
-source/profile refusals and cleanup. The fresh Python3.12 environment uses
-Torch2.9.1+cu128 through a selective read-only dependency site; no competing
-product/core/PG distribution is exposed by that site. Exact core/HG VCS wheels
+source/profile refusals and cleanup. The fresh Python 3.12 environment uses
+Torch 2.9.1+cu128 through a selective read-only dependency site; no competing
+product/core/PG distribution is exposed by that site. Exact core / HG VCS wheels
 were reused from their original pip cache with unmodified public origins.
 `pip check` passes. These checks do not qualify a real pretrained CUDA run.
 
@@ -79,8 +79,28 @@ refuses CPU paths that call CUDA-wide seeders.
 The final source passed a fresh-process tiny native CUDA software proof: actual
 G/D updates, direct teacher/OFF parity, full two-update state and metrics equal
 to one update plus fresh-process restore, immutable base, and raw inference at
-strengths0/.5/1 without constructing a game or critic. Torch allocation peaked
-at0.033GiB for this tiny random model under a2GiB role cap. The compact receipt
+strengths 0 / .5 / 1 without constructing a game or critic. Torch allocation peaked
+at 0.033 GiB for this tiny random model under a 2 GiB role cap. The compact receipt
 is [native-cuda-software-proof-20261104.json](docs/native-cuda-software-proof-20261104.json).
-This result supplies software evidence for the profile; the real pretrained
-Stage C run still needs its own measured admission and qualification.
+This result supplies software evidence for the profile. The separate pretrained
+raw-response proof below has its own data, memory and qualification scope.
+
+## Pretrained native256 raw-response proof
+
+The same runtime `17e9f7b` passed a pretrained Stage C CUDA probe with 3.589 billion parameters using
+the exact cached prior `621fc2d` and explicitly audited metadata view `7ca32c2`.
+At native fields `[1,16,6,6]` (256 pixels), the frozen corpus contains 18 training,
+18 development and 6 no-edit fields from stock 50-step DDPMWuerstchen / CFG 4
+trajectories. Direct teacher/OFF parity, actual G/D updates, immutable base,
+fresh-process two updates versus one-plus-one complete state/metrics, and
+portable raw inference on 18 development fields at strengths 0 / .5 / 1 all pass.
+Torch allocation peaked at 13.633 GiB under a 20 GiB admitted role. All owned
+processes and role locks were released on completion.
+
+The two-update diagnostic uses G = .0012, D = .018, no bank and a 64-update
+recipe horizon. Development relative squared error is 1.001309 versus OFF = 1,
+so it establishes execution rather than useful optimization. A production
+LR recommendation, longer matched screens and complete native Stage B/A
+image-quality comparisons remain pending. Search checkpoints do not add
+trained/published product controls. See the compact exact-source/data receipt
+[native-pretrained-response-proof-20261104.json](docs/native-pretrained-response-proof-20261104.json).
