@@ -31,7 +31,7 @@ a separate draft review branch until root completes its review/admission gates.
 The package retains namespace `particle_sliders_cascade` and both
 `cascade_stage_c` plugin entry points. Its shared dependency remains exactly
 `particle-sliders-core[hypergan-hndl]` at
-`a794e3b4a8813b012f2c4faa3da82b78d4a90214`, including existing generic
+`ddb41423bcefc1fe76cd94d0f9b367353b3ea137`, including existing generic
 `particle_sliders.fibo_hndl` compatibility imports. PG 0.9.4, HyperGAN develop
 `5f368a3770cf5bdae0448995c9f76e29af8049f7` and HNDL 0.10.0 are unchanged.
 No shared mathematics, API, network optimization or domain policy is rewritten.
@@ -64,8 +64,16 @@ job, full-model training, release, deployment or merge is authorized by this
 source extraction. The original embedded paths remain until replacement is
 verified. Root owns Claude actual-source/RETURN review and final decisions.
 
-The a794 active cohort intentionally changes source/closure identity. Genuine
+The archived a794 cohort intentionally changed source/closure identity. Genuine
 4abc training and EMA inference packets are refused rather than relabeled.
 Old cohorts retain their original loaders and packet metadata; no compatibility
 or migration across this core change is claimed. Synthetic core qualification
 does not admit a pretrained Cascade model, Stage B/A or GPU model execution.
+
+The current 0.1.1 candidate advances the shared dependency to ddb41423, expands
+the closure from the earlier 50 files to all 574 files in both installed core
+namespaces, checks the exact VCS origin and official PG source, and adds an
+explicit shared-dispatcher fixture profile. Original a794 manifests and evidence
+are retained unchanged under `docs/archive/a794/`; `PROVENANCE.json` separately
+records this new update. No historical model identity is rewritten. See
+`MODERN-CORE.md` for bounded current evidence and unchanged review/native gates.

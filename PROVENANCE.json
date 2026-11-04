@@ -1,4 +1,26 @@
 {
+  "current_core_update": {
+    "core": "ddb41423bcefc1fe76cd94d0f9b367353b3ea137",
+    "core_lock_sha256": "7056199e3325e1b0d35940479d36c3c164422550f6b68be8bdcf83c47c631ae1",
+    "core_source_file_count": 574,
+    "core_version": "0.12.0",
+    "generated_source_sha256": {
+      "docs/archive/a794/MODERN-CORE.md": "56f7b6d168fb3f94c6178fc094e07fd55b82cc3e3c963bf943c9aed08f999cd8",
+      "docs/archive/a794/PROVENANCE.json": "bc08c5a5fdb5cba1039fb1cfad871cab4ad45bed9f01689dcb9d279868e861c9",
+      "docs/archive/a794/core-lock.json": "9332a438a90d1888a24de0f757e753342f9830ab35f89a35e0009ef5033a4f36",
+      "docs/archive/a794/tiny-config.json": "6feae8812e3ddd55ec66a01f634c5f4a478d2c67f77640c7049a3fc230bb7a41",
+      "tests/test_dispatcher.py": "04fe1ed586286cb36187ba01bacde103588a948111cfe6b887aeb9e5a16d73f7",
+      "tiny-profile.json": "4481d798f5600c2f1f919b7ec2c550b5d56c0f76e77b49068927823717156bf6"
+    },
+    "identity_impact": "new source/closure identity; no old metadata rebinding",
+    "particlegan": "0.9.4",
+    "particlegan_source": "330eb94ee748cdcad131b0275d8de75fd5a7f96f",
+    "previous_core": "a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+    "previous_evidence": "docs/archive/a794/",
+    "review_gate": "Claude actual-source RETURN/root review before merge",
+    "scope": "adapter-only Stage C numerical response, no native/rendering/GPU admission",
+    "source_product_parent": "d81a0401cad2f0e770f18b0764d7081662a31901"
+  },
   "destination_repository": "HyperGAN/cascade-particle-sliders",
   "excluded_product_files": [
     "RETURN-VALIDATION.md",
@@ -17,19 +39,21 @@
       "source_sha256": "4e5e03630a4dc03afbc09f370d498d5ce88434a324cf7af6399914fed53a7330"
     },
     {
-      "adjustment": "repository-root paths, standalone lineage and reviewed modern-core dependency/admission documentation",
+      "adjustment": "repository-root paths, standalone lineage and reviewed modern-core dependency/admission documentation; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
       "byte_identical": false,
       "exported_path": "README.md",
-      "exported_sha256": "aeb48deb770c6856acbecd4c0adacd823de2eaa8c409397860068aba01b51100",
+      "exported_sha256": "e2d77b5b36f289569bb1f2dc1838592176e4e675cf04d6e0ef7348758187c708",
+      "prior_a794_exported_sha256": "aeb48deb770c6856acbecd4c0adacd823de2eaa8c409397860068aba01b51100",
       "source_blob": "a7c914f4988daac8f96e0b75a5a4a23ead491a16",
       "source_path": "conceptmod/cascade-shared/README.md",
       "source_sha256": "670551fefc7a46c2d3b389581a07eabb1a59f57b3862901491deb3f6ad5e6836"
     },
     {
-      "adjustment": "declare MIT SPDX identifier and package the unchanged original LICENSE; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+      "adjustment": "declare MIT SPDX identifier and package the unchanged original LICENSE; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
       "byte_identical": false,
       "exported_path": "pyproject.toml",
-      "exported_sha256": "e25de694f37877d914b46472adf0eebf49efdbe5b5606ab72da08ab5f0c0a728",
+      "exported_sha256": "fe22d7371662f0c6d643454c94df22cdbc2e51da76ace0565b354bbe391eeace",
+      "prior_a794_exported_sha256": "e25de694f37877d914b46472adf0eebf49efdbe5b5606ab72da08ab5f0c0a728",
       "source_blob": "3ae0aa853f72d9b526fdb463a08c08f34d5d84b2",
       "source_path": "conceptmod/cascade-shared/pyproject.toml",
       "source_sha256": "bb58ad28775f3ba83defd64411f8e6e00243d14c7215f48361fb835eeb56d67c"
@@ -44,19 +68,21 @@
       "source_sha256": "d83aa10fed417e7948217ab29755ac7b244dab93ce5a5d695100745392745802"
     },
     {
-      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
       "byte_identical": false,
       "exported_path": "src/particle_sliders_cascade/backend.py",
-      "exported_sha256": "779dfc6920c0db170fb18b6367589819211d723dfdb4db8b38c29f833d76affe",
+      "exported_sha256": "280f75d4c3d8b1cdcfb85f113a3d5130014b701f392f614aa95ddd501a19cdd1",
+      "prior_a794_exported_sha256": "779dfc6920c0db170fb18b6367589819211d723dfdb4db8b38c29f833d76affe",
       "source_blob": "68a9f68e9a530c2be315327f2982b70a20ada48e",
       "source_path": "conceptmod/cascade-shared/src/particle_sliders_cascade/backend.py",
       "source_sha256": "3aea0010d381c1bb989a8423164f0435a7b80f10c1d46e49a1ed63a6308ef946"
     },
     {
-      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+      "adjustment": "none; active modern core dependency/closure identity advanced to a794e3b4a8813b012f2c4faa3da82b78d4a90214; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
       "byte_identical": false,
       "exported_path": "src/particle_sliders_cascade/core-lock.json",
-      "exported_sha256": "9332a438a90d1888a24de0f757e753342f9830ab35f89a35e0009ef5033a4f36",
+      "exported_sha256": "7056199e3325e1b0d35940479d36c3c164422550f6b68be8bdcf83c47c631ae1",
+      "prior_a794_exported_sha256": "9332a438a90d1888a24de0f757e753342f9830ab35f89a35e0009ef5033a4f36",
       "source_blob": "282353fa52002e2f8ed4a46dc37994b615412197",
       "source_path": "conceptmod/cascade-shared/src/particle_sliders_cascade/core-lock.json",
       "source_sha256": "0897c26a1a3d73c9e6daa99b3fa8b21f2e3dc6675189681a41f74dc8e941233b"
@@ -71,19 +97,21 @@
       "source_sha256": "e32094eb55b9178e8c42d7bf483a5915593d5fe6ae3cbca7478559cf80f8dc4c"
     },
     {
-      "adjustment": "none",
-      "byte_identical": true,
+      "adjustment": "none; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
+      "byte_identical": false,
       "exported_path": "tests/test_cascade.py",
-      "exported_sha256": "94faddc89feea8d0cdf65ac85797f956d6cdf65922004a1ffb1f7ea7ae18fbed",
+      "exported_sha256": "27a2dfea0a39a3c69c3acce0d68a82f592cb95c25f67e60cc1c64f5729ee6fb1",
+      "prior_a794_exported_sha256": "94faddc89feea8d0cdf65ac85797f956d6cdf65922004a1ffb1f7ea7ae18fbed",
       "source_blob": "c638b1b384702d5b257262f09f890575ce31610b",
       "source_path": "conceptmod/cascade-shared/tests/test_cascade.py",
       "source_sha256": "94faddc89feea8d0cdf65ac85797f956d6cdf65922004a1ffb1f7ea7ae18fbed"
     },
     {
-      "adjustment": "explicit new active a794 cohort name; no previous packet metadata altered",
+      "adjustment": "explicit new active a794 cohort name; no previous packet metadata altered; current ddb cohort metadata, dual-namespace source admission or fixture conformance update",
       "byte_identical": false,
       "exported_path": "tiny-config.json",
-      "exported_sha256": "6feae8812e3ddd55ec66a01f634c5f4a478d2c67f77640c7049a3fc230bb7a41",
+      "exported_sha256": "7a1da32fcbbe28a232ba77e63c3afc7f65597e4c287edeb0d3b1c5c4a29be0da",
+      "prior_a794_exported_sha256": "6feae8812e3ddd55ec66a01f634c5f4a478d2c67f77640c7049a3fc230bb7a41",
       "source_blob": "bc5fa6fb067f5593f206e3aca3957b74305f42b2",
       "source_path": "conceptmod/cascade-shared/tiny-config.json",
       "source_sha256": "e4ad4810d8435825b1e84d2d71d80aaae81b2998c1beb7bf1fd28ec0060b9abe"
@@ -101,14 +129,26 @@
   "generated_file_rationale": {
     "EXTRACTION.md": "standalone boundaries, dependency/history policy and review plan",
     "MANIFEST.in": "include license, provenance, extraction documentation, tiny config and reviewed tests in sdist",
-    "MODERN-CORE.md": "active a794 core cohort install instructions, identity impact and bounded test evidence",
-    "PROVENANCE.json": "explicit source/blob/path allowlist and byte identities"
+    "MODERN-CORE.md": "current ddb/official PG094 source cohort, installed CPU/dispatcher evidence and preserved limits",
+    "PROVENANCE.json": "explicit source/blob/path allowlist and byte identities",
+    "docs/archive/a794/MODERN-CORE.md": "byte-exact a794 cohort evidence; no relabeling",
+    "docs/archive/a794/PROVENANCE.json": "byte-exact a794 cohort evidence; no relabeling",
+    "docs/archive/a794/core-lock.json": "byte-exact a794 cohort evidence; no relabeling",
+    "docs/archive/a794/tiny-config.json": "byte-exact a794 cohort evidence; no relabeling",
+    "tests/test_dispatcher.py": "explicit fixture dispatcher conformance",
+    "tiny-profile.json": "explicit fixture dispatcher conformance"
   },
   "generated_files": [
     "PROVENANCE.json",
     "EXTRACTION.md",
     "MANIFEST.in",
-    "MODERN-CORE.md"
+    "MODERN-CORE.md",
+    "tiny-profile.json",
+    "tests/test_dispatcher.py",
+    "docs/archive/a794/MODERN-CORE.md",
+    "docs/archive/a794/PROVENANCE.json",
+    "docs/archive/a794/core-lock.json",
+    "docs/archive/a794/tiny-config.json"
   ],
   "historical_model_files_imported": [],
   "history": "clean allowlisted source export; no grafted or mirrored history",

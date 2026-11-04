@@ -8,7 +8,7 @@ configuration, environment and artifact names are unchanged. Use a new
 environment and cohort/output directory. See `PROVENANCE.json` and `EXTRACTION.md`.
 
 **Modern candidate dependency:** the package pins reviewed shared core
-`a794e3b4a8813b012f2c4faa3da82b78d4a90214`, PG 0.9.4,
+`ddb41423bcefc1fe76cd94d0f9b367353b3ea137`, PG 0.9.4,
 HyperGAN develop `5f368a3770cf5bdae0448995c9f76e29af8049f7`, HNDL 0.10.0.
 The shared core has CPU and bounded synthetic CUDA software-fixture qualification.
 This product still requires its own review/native qualification; no full-model or
@@ -50,8 +50,10 @@ adapter influence. Mixed zero-guidance rows retain the existing frozen-negative
 CFG control semantics; this is distinct from native model-specific guidance
 arguments. The shared non-None connectivity check alone does not reject zero gradients.
 
-`core-lock.json` locks all 50 recursive shared-core source/data files from the
-exact pinned Git tree. Training and native inference validate missing, changed,
+`core-lock.json` locks all 574 recursive shared-core source/data files from both
+`particle_sliders` and `concept_slider_core` at the
+exact pinned Git tree. It also verifies the installed VCS origin/commit and
+official PG release bytes. Training and native inference validate missing, changed,
 extra and symlinked files before native allocation/adapter mutation; only
 interpreter-generated `__pycache__` contents are excluded. This is in addition
 to the HG/HNDL closure and PG release checks, not a dependency overlay.
@@ -83,7 +85,7 @@ from particle_sliders.response import open_response
 from particle_sliders.inference import open_inference
 from particle_sliders_cascade.backend import fixture_rows
 
-config = SessionConfig('cascade_stage_c', 'new-cascade-cpu-core-a794',
+config = SessionConfig('cascade_stage_c', 'new-cascade-cpu-core-ddb',
                        dummy=True, steps=4, ema_decay=.9)
 with open_response(config) as session:
     session.train(stop_after=2)
@@ -97,9 +99,18 @@ with open_inference('new-cascade/native.pt', operation='response') as inference:
 ```
 
 The common CLI also executes the registered factory:
-`particle-slider train --interface response --config new-config.json --out new-run`.
-Config JSON is `config.as_dict()`. The shared CLI owns its own artifact envelope;
-use `session.export_inference` above for the cache-independent v2 artifact.
+```bash
+particle-slider plan --profile tiny-profile.json --config tiny-config.json --out new-run --no-reporting
+particle-slider train --profile tiny-profile.json --config tiny-config.json --out new-run --no-reporting \
+  --checkpoint-every 2 --selection ema --export-format both
+```
+
+The supplied profile is explicitly a CPU fixture and requires `dummy=true`;
+it does not admit a pretrained native model. It sets `PYTHONHASHSEED=0` for the
+existing tiny constructor metadata-ordering constraint. `--check` validates
+without training, and `--resume <checkpoint-directory>` continues the same
+immutable semantics. Config JSON is `config.as_dict()`. See `MODERN-CORE.md`
+for installed tests, historical locks and limits.
 
 For an already staged standalone Stage C prior directory, set `dummy=False`,
 `model_dir`, explicit native `shape=[1,C,H,W]`, `cache_file`, `cache_sha256`.
@@ -120,8 +131,8 @@ Successful actions retire; failed actions remain retryable through the same
 as `close(primary=error)`; cleanup never infers a primary from an unrelated
 ambient `except` block. With an explicit primary, incomplete cleanup adds a note
 and exposes `error.cascade_cleanup()` for retry even if
-preparation returned no binding. The shared session may already be marked closed;
-retry that callback rather than treating the failed session as resumable.
+preparation returned no binding. The current shared session retains failed cleanup for retry; a failed training
+operation does not become resumable merely because cleanup can be retried.
 
 Native-only v2 export omits cache paths, rows, teachers, critic and optimizers.
 Its factory loads only the local base and HNDL adapter, validates the base/source
@@ -134,7 +145,7 @@ Run the installed package with Python isolated mode and pytest importlib mode;
 the source checkout and original umbrella checkout must not be import roots:
 
 ```bash
-CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+PYTHONHASHSEED=0 CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
   .venv-cascade/bin/python -I -m pytest --noconftest -c /dev/null \
   --import-mode=importlib tests -q
 ```

@@ -1,45 +1,72 @@
-# Active modern core cohort
+# Current shared-core cohort
 
-The active candidate pins `particle-sliders-core[hypergan-hndl]` to immutable
-`HyperGAN/particle-sliders@a794e3b4a8813b012f2c4faa3da82b78d4a90214`.
-The recursive lock covers all 50 installed source/data files. Its SHA256 is
-`9332a438a90d1888a24de0f757e753342f9830ab35f89a35e0009ef5033a4f36`.
-Core version remains 0.12.0, PG remains 0.9.4, HNDL remains 0.10.0 and HyperGAN
-remains `5f368a3770cf5bdae0448995c9f76e29af8049f7`. Version alone is insufficient;
-the exact Git origin and recursive installed bytes were verified.
+The active package 0.1.1 pins `particle-sliders-core[hypergan-hndl]` 0.12.0 to
+`HyperGAN/particle-sliders@ddb41423bcefc1fe76cd94d0f9b367353b3ea137`.
+This includes the merged shared training dispatcher and isolated execution worker.
+ParticleGAN is the official 0.9.4 release, source
+`330eb94ee748cdcad131b0275d8de75fd5a7f96f`; the core checks its installed release
+source manifest. HyperGAN remains `5f368a3770cf5bdae0448995c9f76e29af8049f7`
+and HNDL remains 0.10.0.
 
-This intentionally changes the product source/closure identity from the old
-4abc preview cohort. Genuine old training state is rejected without changing a
-live session, which remains usable for a subsequent update. Genuine old EMA
-native-inference artifacts are refused before model allocation. Old metadata
-is not rewritten, and old packets remain with their original loaders/cohorts.
+`core-lock.json` v2 covers all **574** installed source/data files: 573 in
+`particle_sliders` and one in `concept_slider_core`. Every hash was checked
+against the exact Git tree. Admission checks distribution version, exact VCS
+origin/commit, import shadowing and the recursive installed bytes, then the
+official PG release source. Missing, modified, extra and symlinked source/data
+refuse before native allocation or adapter mutation. The distribution's
+RECORD-tracked wheel-root `.pth` hook is separate from these two package trees.
 
-Reproduce in an isolated CPU environment:
+This is a new source/closure identity. No old checkpoint, artifact or cache
+metadata is relabeled. The exact a794 lock, config, provenance and evidence are
+retained under `docs/archive/a794/`; earlier 4abc and original extraction
+lineage remain recorded there and in `PROVENANCE.json`. Use the original pinned
+package/environment to reproduce an older cohort. Current training requires a
+fresh cohort/output/cache identity.
+
+The adapter-only generator arm is unchanged: `particles=None`, no particle bank,
+no SBNP bank regularization, no substitute local GAN formula. Shared PG owns the
+logistic objective, BISPF critic, optimizer law and update lifecycle. This is a
+supported adapter GAN arm rather than the complete bank-based ParticleGAN recipe.
+Stage C numerical embedding responses remain the only product surface; no
+Stage B/A trainer or renderer is added.
+
+## CPU install and checks
+
+Use a separate Python 3.11–3.14 environment. The verified environment was Python
+3.12.15 / Torch 2.9.1+cpu, installed from public package/VCS requirements with no
+system site-packages. `pip check` passes. No pretrained model is downloaded.
 
 ```bash
 python -m venv .venv
-.venv/bin/python -m pip install torch==2.9.0+cpu --index-url https://download.pytorch.org/whl/cpu
+.venv/bin/python -m pip install torch==2.9.1+cpu --index-url https://download.pytorch.org/whl/cpu
 .venv/bin/python -m pip install build pytest .
 .venv/bin/python -m build --outdir dist
 .venv/bin/python -m pip install --force-reinstall --no-deps dist/*.whl
-CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+PYTHONHASHSEED=0 CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
   .venv/bin/python -I -m pytest --noconftest -c /dev/null --import-mode=importlib tests -q
 .venv/bin/python -m pip install --force-reinstall --no-deps dist/*.tar.gz
-CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+PYTHONHASHSEED=0 CUDA_VISIBLE_DEVICES='' HF_HUB_OFFLINE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
   .venv/bin/python -I -m pytest --noconftest -c /dev/null --import-mode=importlib tests -q
 .venv/bin/python -m pip check
 ```
 
-On CPU PyTorch 2.9.0+cpu / Python 3.14, installed wheel and sdist each passed all
-29 product tests with source and umbrella checkouts absent from import roots;
-pip check passed. Clean public dependency resolution selected the exact a794
-Git origin and CPU wheel, without NVIDIA packages. Tests retain actual updates,
-matched HNDL outputs/VJPs/critic second derivatives, OFF/raw/EMA/resume,
-source-lock tamper refusal, explicit-primary cleanup/retry and RNG checks.
+Installed wheel and sdist each pass **33 tests**, outside the source import roots.
+These cover HNDL outputs/VJPs/second derivatives, actual adapter updates,
+zero/signed strengths, EMA/native-only API inference, exact resume, rollback,
+cleanup retry, PG/source admission and both namespaces' closure rejection.
+The dispatcher test plans, checks, rejects `dummy=false` for the fixture profile,
+trains two of four updates with periodic checkpoints, resumes to four, matches
+an uninterrupted worker checkpoint exactly and exports both v1 and EMA v2.
 
-No product objective, bank, native geometry, scale policy, model license,
-historical/default cohort, workflow or access policy changed. Shared-core
-synthetic CUDA qualification does not qualify this model's native/GPU execution
-or quality. Stage B/A, full pretrained/sampler/rendering and the existing
-constructor-only fixture metadata-order limitation remain unqualified. No GPU
-jobs, releases, model weights, deployment or merge are part of this change.
+The supplied `tiny-profile.json` declares `status=fixture` and requires the actual
+`dummy=true` config. It fixes `PYTHONHASHSEED=0` for worker conformance. The existing
+constructor-only Diffusers `_use_default_values` ordering limitation still makes
+some cross-import-path/cross-process identities differ and correctly refuse;
+this change does not normalize or rebind that identity. Previously documented
+fully specified staged tiny-prior checks are distinct from this fixture check.
+No additional native model or GPU qualification is claimed.
+
+Actual-source Claude RETURN/root review, full pretrained Stage C qualification,
+DDPMWuerstchen sampling plus Stage B/A rendering parity and native GPU/model
+quality remain pending. No model weights, GPU training, release or merge is
+included.

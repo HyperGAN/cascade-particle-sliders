@@ -1,0 +1,24 @@
+{
+  "schema": "particle-slider-profile-v1",
+  "name": "cascade-tiny-cpu-fixture",
+  "product": "cascade-particle-sliders",
+  "config_kind": "session",
+  "status": "fixture",
+  "interface": "response",
+  "backend": "cascade_stage_c",
+  "runtime": {
+    "env": {
+      "PYTHONHASHSEED": "0",
+      "HF_HUB_OFFLINE": "1",
+      "CUDA_VISIBLE_DEVICES": "",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "capabilities": {
+    "resume": true,
+    "periodic_checkpoint": true,
+    "check": true
+  },
+  "default_checkpoint_every": 2
+}

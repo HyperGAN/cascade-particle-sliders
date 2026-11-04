@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from dataclasses import replace
 import hashlib
 import json
-from importlib.metadata import version
+from importlib.metadata import distribution, version
 from pathlib import Path
 
 import torch
@@ -24,7 +24,7 @@ from particle_sliders.response import ResponseBackend, ResponseCapabilities
 NAME = 'cascade_stage_c'
 PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v2'
 GRAPH = Path(__file__).with_name('lora.hndl')
-CORE_COMMIT = 'a794e3b4a8813b012f2c4faa3da82b78d4a90214'
+CORE_COMMIT = 'ddb41423bcefc1fe76cd94d0f9b367353b3ea137'
 CORE_LOCK = Path(__file__).with_name('core-lock.json')
 FEATURE_POLICY = dict(version='cascade-unit-ratio-critic-v2', time_coordinate='native ratio r in [0,1]',
                       shared_helper_view='timestep=1000*r for features only; native row unchanged')
@@ -42,22 +42,37 @@ def verify_core_closure():
     """Lock every installed recursive source/data byte to the pinned Git tree."""
     expected = json.loads(CORE_LOCK.read_text())
     if (expected['schema'], expected['commit'], expected['distribution'], expected['version']) != (
-            'cascade-shared-core-closure-v1', CORE_COMMIT, 'particle-sliders-core', '0.12.0'):
+            'cascade-shared-core-closure-v2', CORE_COMMIT, 'particle-sliders-core', '0.12.0'):
         raise ValueError('Cascade core closure manifest contradicts the cohort')
     if version('particle-sliders-core') != expected['version']:
         raise ValueError('Cascade requires the locked shared-core distribution')
-    root = core_root()
+    import particle_sliders
+    dependency = distribution('particle-sliders-core')
+    origin = json.loads(dependency.read_text('direct_url.json') or '{}')
+    if (origin.get('url') != 'https://github.com/HyperGAN/particle-sliders.git'
+            or origin.get('vcs_info', {}).get('commit_id') != CORE_COMMIT):
+        raise ValueError('Cascade requires the exact pinned shared-core Git origin')
+    if Path(particle_sliders.__file__).resolve() != Path(dependency.locate_file('particle_sliders/__init__.py')).resolve():
+        raise ValueError('Cascade shared-core import is shadowed')
+    root = core_root().parent
     actual = {}
-    for path in root.rglob('*'):
-        relative = path.relative_to(root)
-        if '__pycache__' in relative.parts:
-            continue  # Interpreter-generated cache is not packaged source/data.
-        if path.is_symlink():
-            raise ValueError('Cascade shared-core closure rejects symlinks')
-        if path.is_file():
-            actual[relative.as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    for package in ('particle_sliders', 'concept_slider_core'):
+        package_root = root / package
+        if package_root.is_symlink() or not package_root.is_dir():
+            raise ValueError('Cascade recursive shared-core source/data closure requires both packages')
+        for path in package_root.rglob('*'):
+            relative = path.relative_to(root)
+            if '__pycache__' in relative.parts:
+                continue  # Interpreter-generated cache is not packaged source/data.
+            if path.is_symlink():
+                raise ValueError('Cascade shared-core closure rejects symlinks')
+            if path.is_file():
+                actual[relative.as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
     if actual != expected['files']:
         raise ValueError('Cascade recursive shared-core source/data closure differs before native mutation')
+    # Admit the installed official PG release source before native mutation.
+    from particle_sliders.pg09 import _released_sources
+    _released_sources(profile=PG_SOURCE_PROFILE)
     return hashlib.sha256(CORE_LOCK.read_bytes()).hexdigest()
 
 

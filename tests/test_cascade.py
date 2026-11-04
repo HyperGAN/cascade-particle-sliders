@@ -302,23 +302,27 @@ def test_unit_ratio_features_preserve_native_calls_cfg_and_zero():
         handle.remove()
 
 
-@pytest.mark.parametrize('mutation', ['python', 'data', 'missing', 'nested-python', 'nested-data'])
+@pytest.mark.parametrize('mutation', ['python', 'data', 'missing', 'nested-python', 'nested-data', 'compatibility-python'])
 def test_recursive_core_closure_before_native_mutation(tmp_path, monkeypatch, mutation):
     import shutil
     with open_response(config()) as session:
         artifact = session.export_inference()
     copy = tmp_path / 'core'
-    shutil.copytree(b.core_root(), copy, ignore=shutil.ignore_patterns('__pycache__'))
+    shutil.copytree(b.core_root(), copy / 'particle_sliders', ignore=shutil.ignore_patterns('__pycache__'))
+    shutil.copytree(b.core_root().parent / 'concept_slider_core', copy / 'concept_slider_core',
+                    ignore=shutil.ignore_patterns('__pycache__'))
     if mutation == 'python':
-        (copy / 'lifecycle.py').write_text((copy / 'lifecycle.py').read_text() + '\n# altered\n')
+        (copy / 'particle_sliders/lifecycle.py').write_text((copy / 'particle_sliders/lifecycle.py').read_text() + '\n# altered\n')
     elif mutation == 'data':
-        (copy / 'fibo_critic.hndl').write_text('altered graph\n')
+        (copy / 'particle_sliders/fibo_critic.hndl').write_text('altered graph\n')
     elif mutation == 'missing':
-        (copy / 'pg094_release.json').unlink()
+        (copy / 'particle_sliders/pg094_release.json').unlink()
+    elif mutation == 'compatibility-python':
+        (copy / 'concept_slider_core/__init__.py').write_text('# altered compatibility namespace\n')
     else:
-        (copy / 'nested').mkdir()
-        (copy / 'nested' / ('extra.py' if mutation == 'nested-python' else 'extra.json')).write_text('{}')
-    monkeypatch.setattr(b, 'core_root', lambda: copy)
+        (copy / 'particle_sliders/nested').mkdir()
+        (copy / 'particle_sliders/nested' / ('extra.py' if mutation == 'nested-python' else 'extra.json')).write_text('{}')
+    monkeypatch.setattr(b, 'core_root', lambda: copy / 'particle_sliders')
     monkeypatch.setattr(b, 'load_model', lambda *args: pytest.fail('native allocation before closure rejection'))
     with pytest.raises(ValueError, match='recursive shared-core source/data closure'):
         open_response(config())
@@ -495,3 +499,24 @@ def test_mixed_zero_guidance_retains_frozen_negative_control():
         session.step()
         assert any(not torch.equal(a, p) for a, p in zip(before, session.game.network.parameters()))
         torch.testing.assert_close(session.evaluate(index=0, strength=2), expected, rtol=0, atol=0)
+
+
+def test_shared_origin_refused_before_native_allocation(monkeypatch):
+    installed = b.distribution
+    class WrongOrigin:
+        def read_text(self, name):
+            assert name == 'direct_url.json'
+            return '{"url":"https://example.invalid/other.git","vcs_info":{"commit_id":"changed"}}'
+    monkeypatch.setattr(b, 'distribution', lambda name: WrongOrigin() if name == 'particle-sliders-core' else installed(name))
+    monkeypatch.setattr(b, 'load_model', lambda *args: pytest.fail('native allocation before source admission'))
+    with pytest.raises(ValueError, match='exact pinned shared-core Git origin'):
+        open_response(config())
+
+
+def test_adapter_only_particle_branch_preserved():
+    with open_response(config()) as session:
+        assert session.game.prior is None
+        assert session.game.spread is None
+        assert session.game.recipe.total_steps == 3
+        session.step()
+        assert session.game.completed_steps == 1
