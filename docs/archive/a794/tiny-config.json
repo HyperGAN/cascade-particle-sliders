@@ -1,0 +1,9 @@
+{
+  "backend": "cascade_stage_c",
+  "cohort": "new-cascade-tiny-cpu-v2-core-a794",
+  "options": {
+    "dummy": true,
+    "steps": 3,
+    "ema_decay": 0.9
+  }
+}

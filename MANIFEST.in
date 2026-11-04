@@ -1,0 +1,3 @@
+include LICENSE README.md PROVENANCE.json EXTRACTION.md MODERN-CORE.md tiny-config.json tiny-profile.json
+recursive-include tests *.py
+recursive-include docs *.json *.md
