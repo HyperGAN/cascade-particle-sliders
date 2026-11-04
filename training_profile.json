@@ -1,0 +1,19 @@
+{
+  "schema": "particle-slider-profile-v1",
+  "name": "cascade-particle-sliders-unavailable",
+  "product": "cascade-particle-sliders",
+  "config_kind": "native",
+  "status": "blocked",
+  "reason": "The checked-out default source is a review scaffold with no executable Cascade training factory. A separate draft branch is not silently substituted.",
+  "runtime": {
+    "python": "python3"
+  },
+  "capabilities": {
+    "resume": false,
+    "periodic_checkpoint": false,
+    "check": false
+  },
+  "target_steps_path": "steps",
+  "evidence": "README.md",
+  "source_revision": "29644017fdf7bdcad58901460213bbeecb120216"
+}
