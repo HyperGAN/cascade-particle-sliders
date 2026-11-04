@@ -27,6 +27,7 @@ from particle_sliders.response import ResponseBackend, ResponseCapabilities
 NAME = 'cascade_stage_c'
 PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v3'
 GRAPH = Path(__file__).with_name('lora.hndl')
+EXECUTION_FILE = Path(__file__).with_name('execution.py')
 CORE_COMMIT = 'ddb41423bcefc1fe76cd94d0f9b367353b3ea137'
 CORE_LOCK = Path(__file__).with_name('core-lock.json')
 FEATURE_POLICY = dict(version='cascade-unit-ratio-critic-v2', time_coordinate='native ratio r in [0,1]',
@@ -128,7 +129,7 @@ def capabilities(options):
 def tiny_model():
     from diffusers import StableCascadeUNet
     with torch.random.fork_rng(devices=[]):
-        torch.manual_seed(51)
+        torch.random.default_generator.manual_seed(51)
         return StableCascadeUNet(in_channels=4, out_channels=4,
             timestep_ratio_embedding_dim=8, conditioning_dim=8, block_out_channels=(16,),
             num_attention_heads=(2,), down_num_layers_per_block=(1,), up_num_layers_per_block=(1,),
@@ -166,6 +167,7 @@ def model_identity(model, options=None):
                 configuration=dict(model.config), diffusers=version('diffusers'),
                 protocol=PROTOCOL, critic_feature_policy=FEATURE_POLICY, adapter_policy=ADAPTER_POLICY,
                 execution_policy=execution_policy(options or {}),
+                execution_source_sha256=hashlib.sha256(EXECUTION_FILE.read_bytes()).hexdigest(),
                 gradient_checkpointing=(options or {}).get('gradient_checkpointing', False),
                 shared_core_lock_sha256=verify_core_closure(),
                 graph_sha256=hashlib.sha256(GRAPH.read_bytes()).hexdigest(),
@@ -361,7 +363,9 @@ def prepare(options, *, model=None, rows=None):
     policy = execution_policy(options)
     devices = [0] if policy['profile'] == CUDA_PROFILE else []
     with torch.random.fork_rng(devices=devices):
-        torch.manual_seed(options.get('seed', 7))
+        torch.random.default_generator.manual_seed(options.get('seed', 7))
+        if devices:
+            torch.cuda.default_generators[0].manual_seed(options.get('seed', 7))
         return _prepare(options, model=model, rows=rows)
 
 
@@ -412,6 +416,7 @@ def validate_inference(options, spec):
     configuration = dict(spec.configuration, **options)
     policy = execution_policy(configuration)
     if (spec.identity['model'].get('execution_policy') != policy
+            or spec.identity['model'].get('execution_source_sha256') != hashlib.sha256(EXECUTION_FILE.read_bytes()).hexdigest()
             or spec.identity['model'].get('gradient_checkpointing') != configuration.get('gradient_checkpointing', False)):
         raise ValueError('native execution policy differs before base allocation')
     validate(configuration) if spec.configuration.get('dummy') else _validate_native(configuration)

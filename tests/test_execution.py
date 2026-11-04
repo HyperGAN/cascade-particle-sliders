@@ -20,6 +20,7 @@ def test_execution_profile_refuses_ambiguous_placement_before_allocation(options
 
 
 def test_cpu_constructor_does_not_snapshot_or_initialize_visible_cuda(monkeypatch):
+    monkeypatch.setattr(torch.cuda, 'manual_seed_all', lambda *args: pytest.fail('CPU path seeded CUDA devices'))
     monkeypatch.setattr(torch.cuda, 'get_rng_state', lambda *args: pytest.fail('CPU path touched CUDA RNG'))
     monkeypatch.setattr(torch.cuda, 'device_count', lambda: pytest.fail('CPU path inspected CUDA devices'))
     model = b.tiny_model()
@@ -45,6 +46,17 @@ def test_caller_flags_are_checked_without_enabling_cuda(monkeypatch):
     monkeypatch.setattr(torch, 'are_deterministic_algorithms_enabled', lambda: False)
     with pytest.raises(ValueError, match='caller-set strict'):
         e.execution_policy(dict(runtime_profile=e.CUDA_PROFILE, device='cuda:0'))
+
+
+def test_changed_execution_source_refused_before_inference_allocation(tmp_path, monkeypatch):
+    with open_response(SessionConfig(b.NAME, 'execution-source', dummy=True)) as session:
+        artifact = session.export_inference()
+    changed = tmp_path / 'execution.py'
+    changed.write_bytes(b.EXECUTION_FILE.read_bytes() + b'\n# changed execution source\n')
+    monkeypatch.setattr(b, 'EXECUTION_FILE', changed)
+    monkeypatch.setattr(b, 'load_model', lambda *args: pytest.fail('allocated changed execution source'))
+    with pytest.raises(ValueError, match='execution policy differs'):
+        open_inference(artifact, operation='response')
 
 
 def test_native_checkpointing_captures_signed_scales_and_restores_borrowed_model():

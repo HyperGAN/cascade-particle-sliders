@@ -57,7 +57,7 @@ additionally needs a source-bound DDPMWuerstchen sampler and Stage B/A decoder
 parity; a raw embedding-field score does not establish image quality. Native
 memory and throughput must be measured before assigning a GPU budget.
 
-Installed CPU verification of this source: 51 tests pass with CUDA hidden,
+Installed CPU verification of this source: 52 tests pass with CUDA hidden,
 including exact continuation, native-only exports, signed checkpoint VJPs,
 source/profile refusals and cleanup. The fresh Python3.12 environment uses
 Torch2.9.1+cu128 through a selective read-only dependency site; no competing
@@ -70,3 +70,8 @@ Diffusers constructor's unordered `_use_default_values` metadata differed across
 isolated Python processes. That failed attempt is retained. V3 now supplies every
 constructor option explicitly, leaving no implicit-default list; no old packet
 is sorted, rewritten or rebound. A fresh source-bound CUDA proof is required.
+
+Construction seeds the explicit CPU generator and, for the CUDA profile, only
+the owned CUDA0 generator within its RNG-restoration scope. It never uses
+`torch.manual_seed`, which would seed every visible accelerator. The regression
+refuses CPU paths that call CUDA-wide seeders.
