@@ -170,5 +170,23 @@
   "source_commit": "11c51752179f24b7742545bee0541b2799ffb8b2",
   "source_commit_availability": "original local lineage snapshot; not claimed fetchable from original remote",
   "source_product_root": "conceptmod/cascade-shared/",
-  "source_repository": "https://github.com/HyperGAN/particle-sliders"
+  "source_repository": "https://github.com/HyperGAN/particle-sliders",
+  "execution_profile_update": {
+    "parent": "277ec1c2ec12fd4d97e2fd28090561d385aa445f",
+    "protocol": "cascade-stage-c-spatial-response-hndl-v3",
+    "profiles": [
+      "cpu-fp32-v1",
+      "native-cuda-fp32-math-v1"
+    ],
+    "archive": "docs/archive/stage-c-v2/manifest.json",
+    "core_unchanged": "ddb41423bcefc1fe76cd94d0f9b367353b3ea137",
+    "PG_unchanged": "official release0.9.4",
+    "scope": "Explicit execution identity, same native Stage C adapter-only response law; device-correct adapters/critic and scale-captured optional native checkpointing. Native CUDA/quality qualification requires fresh measured receipt.",
+    "files": {
+      "src/particle_sliders_cascade/backend.py": "bd3e355d4c0e8aede4fbccb8419e12947f797bd0cd72b7fb5e2acb417f908f35",
+      "src/particle_sliders_cascade/execution.py": "a515c19a195cb41e116f828839243a916950c3f4e0644ce80562b06ddc766913",
+      "tests/test_execution.py": "a8207abc7370b64bffc6379057ee377df73a9d97ed7f92a6804228ae88cc279e",
+      "NATIVE-CUDA.md": "6b367325b382088a0048a937ee9f2215fc4e383907f3ea7593baf69db1621499"
+    }
+  }
 }

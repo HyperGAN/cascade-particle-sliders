@@ -1,6 +1,6 @@
 {
   "backend": "cascade_stage_c",
-  "cohort": "new-cascade-tiny-cpu-v2-core-ddb",
+  "cohort": "new-cascade-tiny-cpu-v3-core-ddb",
   "options": {
     "dummy": true,
     "steps": 4,

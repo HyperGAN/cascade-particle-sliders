@@ -18,12 +18,14 @@ from particle_sliders.inference import InferenceBackend, InferenceBinding, nativ
 from particle_sliders.lifecycle import Binding, Capabilities
 from particle_sliders.pg09 import ConditionalPG09, PG_VERSION, PG_SOURCE_PROFILE, _hash, _identity
 from .learning_rates import recipe_overrides
-from particle_sliders.pg09_backends import AdapterParameters, FrozenResponseAdapter, ResponseRow
+from .execution import CPU_PROFILE, CUDA_PROFILE, execution_policy
+from particle_sliders.pg09_backends import (AdapterParameters, FrozenResponseAdapter, ResponseRow,
+                                           bind_native_gradient_checkpointing)
 from particle_sliders.pg09_images import image_condition_features
 from particle_sliders.response import ResponseBackend, ResponseCapabilities
 
 NAME = 'cascade_stage_c'
-PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v2'
+PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v3'
 GRAPH = Path(__file__).with_name('lora.hndl')
 CORE_COMMIT = 'ddb41423bcefc1fe76cd94d0f9b367353b3ea137'
 CORE_LOCK = Path(__file__).with_name('core-lock.json')
@@ -85,7 +87,8 @@ def unit_ratio_condition_features(prepared):
 
 def validate(options):
     allowed = {'dummy', 'model_dir', 'cache_file', 'cache_sha256', 'shape', 'rank',
-               'steps', 'batch', 'seed', 'ema_decay', 'base_precision', 'lr','d_lr_mult','prior_lr_mult'}
+               'steps', 'batch', 'seed', 'ema_decay', 'base_precision', 'lr','d_lr_mult','prior_lr_mult',
+               'runtime_profile', 'device', 'gradient_checkpointing'}
     if set(options) - allowed:
         raise ValueError('unknown Cascade options: ' + str(sorted(set(options) - allowed)))
     recipe_overrides(**{name:options.get(name) for name in ('lr','d_lr_mult','prior_lr_mult')})
@@ -96,8 +99,9 @@ def validate(options):
         raise ValueError('Stage C requires explicit native [1,C,H,W] shape')
     if type(options.get('dummy', False)) is not bool:
         raise ValueError('dummy must be boolean')
-    if options.get('base_precision', 'float32') != 'float32':
-        raise ValueError('only CPU FP32 Stage C is qualified by this cohort')
+    execution_policy(options)
+    if type(options.get('gradient_checkpointing', False)) is not bool:
+        raise ValueError('gradient_checkpointing must be boolean')
     if type(options.get('rank', 4)) is not int or not 1 <= options.get('rank', 4) <= 128:
         raise ValueError('rank must be in [1,128]')
     if options.get('dummy', False):
@@ -118,12 +122,12 @@ def capabilities(options):
     return ResponseCapabilities('adapter_gan', 'image', 'stage_c_image_embedding_prediction',
         'continuous_field', tuple(options.get('shape', [1, 4, 4, 4])), PG_VERSION, PG_SOURCE_PROFILE,
         strength_min=None, strength_max=None,
-        qualification='tiny random native Stage C CPU conformance; pretrained and full Cascade rendering unqualified')
+        qualification='Stage C response software contract; pretrained CUDA and full rendering require native receipts')
 
 
 def tiny_model():
     from diffusers import StableCascadeUNet
-    with torch.random.fork_rng():
+    with torch.random.fork_rng(devices=[]):
         torch.manual_seed(51)
         return StableCascadeUNet(in_channels=4, out_channels=4,
             timestep_ratio_embedding_dim=8, conditioning_dim=8, block_out_channels=(16,),
@@ -145,17 +149,22 @@ def fixture_rows():
 
 
 def load_model(options):
+    policy = execution_policy(options)
     if options.get('dummy', False):
-        return tiny_model()
-    from diffusers import StableCascadeUNet
-    return StableCascadeUNet.from_pretrained(options['model_dir'], local_files_only=True,
-                                           torch_dtype=torch.float32, use_safetensors=True)
+        model = tiny_model()
+    else:
+        from diffusers import StableCascadeUNet
+        model = StableCascadeUNet.from_pretrained(options['model_dir'], local_files_only=True,
+                                                torch_dtype=torch.float32, use_safetensors=True)
+    return model.to(device=policy['device'], dtype=torch.float32)
 
 
-def model_identity(model):
+def model_identity(model, options=None):
     return json.loads(json.dumps(dict(stage='C', state_sha256=_hash(_identity(model.state_dict())),
                 configuration=dict(model.config), diffusers=version('diffusers'),
                 protocol=PROTOCOL, critic_feature_policy=FEATURE_POLICY, adapter_policy=ADAPTER_POLICY,
+                execution_policy=execution_policy(options or {}),
+                gradient_checkpointing=(options or {}).get('gradient_checkpointing', False),
                 shared_core_lock_sha256=verify_core_closure(),
                 graph_sha256=hashlib.sha256(GRAPH.read_bytes()).hexdigest(),
                 graph_runtime=verified_builder()[1], decoder_stages='B/A outside response cohort'), allow_nan=False))
@@ -208,14 +217,18 @@ class NativeResponse(FrozenResponseAdapter):
     family = NAME
     time_coordinates = 'native DDPMWuerstchen timestep_ratio in [0,1]; Stage C embedding field'
 
-    def __init__(self, model, network, identity):
+    def __init__(self, model, network, identity, options):
         self.model = model
+        self.options = dict(options)
         super().__init__(network, model_identity=identity)
+        bind_native_gradient_checkpointing(model, network)
 
     def _velocity(self, condition, latent, timestep):
-        return self.model(sample=latent, timestep_ratio=timestep.reshape(1),
-            clip_text=condition['embeds'], clip_text_pooled=condition['pooled'],
-            clip_img=condition['image_embeds']).sample.float()
+        policy = execution_policy(self.options)
+        device = policy['device']
+        return self.model(sample=latent.to(device), timestep_ratio=timestep.reshape(1).to(device),
+            clip_text=condition['embeds'].to(device), clip_text_pooled=condition['pooled'].to(device),
+            clip_img=condition['image_embeds'].to(device)).sample.float()
 
     def metadata(self):
         return dict(super().metadata(), protocol=PROTOCOL, critic_feature_policy=dict(FEATURE_POLICY),
@@ -294,7 +307,7 @@ def attach(model, rank):
     try:
         # Build all executable graphs before modifying the borrowed model.
         for name, module in targets:
-            graphs[name.replace('.', '__')] = LoRAGraph(module, rank)
+            graphs[name.replace('.', '__')] = LoRAGraph(module, rank).to(module.weight.device)
         model.requires_grad_(False).eval()
         for name, module in targets:
             graph = graphs[name.replace('.', '__')]
@@ -323,13 +336,18 @@ def attach(model, rank):
 
 def native(options, *, model=None):
     verify_core_closure()
+    policy = execution_policy(options)
     model = load_model(options) if model is None else model
-    if any(p.device.type != 'cpu' or p.dtype != torch.float32 for p in model.parameters()):
-        raise ValueError('this cohort requires CPU FP32 native base')
-    identity = model_identity(model)
+    if any(str(p.device) != policy['device'] or p.dtype != torch.float32 for p in model.parameters()):
+        raise ValueError('native base placement/precision differs from explicit execution profile')
+    identity = model_identity(model, options)
     network, close = attach(model, options.get('rank', 4))
     try:
-        return NativeResponse(model, network, identity), close
+        if options.get('gradient_checkpointing', False):
+            model.enable_gradient_checkpointing()
+        else:
+            model.disable_gradient_checkpointing()
+        return NativeResponse(model, network, identity, options), close
     except BaseException as primary:
         close(primary=primary)
         raise
@@ -338,7 +356,9 @@ def native(options, *, model=None):
 def prepare(options, *, model=None, rows=None):
     recipe_overrides(**{name:options.get(name) for name in ('lr','d_lr_mult','prior_lr_mult')})
     verify_core_closure()
-    with torch.random.fork_rng():
+    policy = execution_policy(options)
+    devices = [0] if policy['profile'] == CUDA_PROFILE else []
+    with torch.random.fork_rng(devices=devices):
         torch.manual_seed(options.get('seed', 7))
         return _prepare(options, model=model, rows=rows)
 
@@ -350,7 +370,7 @@ def _prepare(options, *, model=None, rows=None):
             rows = fixture_rows()
         else:
             cache = torch.load(options['cache_file'], map_location='cpu', weights_only=True)
-            if set(cache) != {'model_identity', 'rows'} or cache['model_identity'] != model_identity(model):
+            if set(cache) != {'model_identity', 'rows'} or cache['model_identity'] != model_identity(model, options):
                 raise ValueError('frozen cache belongs to a different Stage C base')
             rows = [ResponseRow(**row) for row in cache['rows']]
     if len(rows) < 2:
@@ -364,12 +384,13 @@ def _prepare(options, *, model=None, rows=None):
         prepared = [response.prepare(row) for row in rows]
         conditions = unit_ratio_condition_features(prepared)
         critic = HNDLFieldCritic(prepared[0].target.shape[1], conditions.shape[1],
-                                 prepared[0].target.shape[2:], width=8)
+                                 prepared[0].target.shape[2:], width=8).to(prepared[0].target.device)
         game = ConditionalPG09(response, prepared, critic, conditions=conditions,
             total_steps=options.get('steps', 4), batch_size=options.get('batch', 2), seed=options.get('seed', 7),
             recipe_overrides=recipe_overrides(**{name:options.get(name)
                 for name in ('lr','d_lr_mult','prior_lr_mult')}))
-        configuration = {k: v for k, v in options.items() if k in ('dummy', 'shape', 'rank')}
+        configuration = {k: v for k, v in options.items() if k in (
+            'dummy', 'shape', 'rank', 'runtime_profile', 'device', 'gradient_checkpointing')}
         spec = INFERENCE.specification(response, model_identity=response.model_identity,
             protocol=PROTOCOL, configuration=configuration)
         return Binding(game, close, inference=spec)
@@ -383,15 +404,21 @@ def validate_inference(options, spec):
     if (spec.identity['protocol'] != PROTOCOL
             or spec.identity['model'].get('critic_feature_policy') != FEATURE_POLICY
             or spec.identity['model'].get('adapter_policy') != ADAPTER_POLICY):
-        raise ValueError('native inference requires explicit Cascade v2 feature/activation policies; no rebinding')
+        raise ValueError('native inference requires explicit Cascade v3 execution/feature/activation policies; no rebinding')
     if set(options) - {'model_dir', 'base_precision'}:
         raise ValueError('native-only inference accepts local base path/precision, no training cache')
-    validate(dict(spec.configuration, **options)) if spec.configuration.get('dummy') else _validate_native(options)
+    configuration = dict(spec.configuration, **options)
+    policy = execution_policy(configuration)
+    if (spec.identity['model'].get('execution_policy') != policy
+            or spec.identity['model'].get('gradient_checkpointing') != configuration.get('gradient_checkpointing', False)):
+        raise ValueError('native execution policy differs before base allocation')
+    validate(configuration) if spec.configuration.get('dummy') else _validate_native(configuration)
 
 
 def _validate_native(options):
+    execution_policy(options)
     if not Path(options.get('model_dir', '')).is_dir() or options.get('base_precision', 'float32') != 'float32':
-        raise ValueError('local CPU FP32 Stage C base required')
+        raise ValueError('local FP32 Stage C base required')
     verified_builder()
     if version('diffusers') != '0.36.0':
         raise ValueError('Cascade requires diffusers==0.36.0')
@@ -401,7 +428,7 @@ def prepare_inference(options, spec):
     verify_core_closure()
     configuration = dict(spec.configuration, **options)
     model = load_model(configuration)
-    if model_identity(model) != spec.identity['model']:
+    if model_identity(model, configuration) != spec.identity['model']:
         raise ValueError('native Stage C base/source differs before adapter attachment')
     response, close = native(configuration, model=model)
     try:

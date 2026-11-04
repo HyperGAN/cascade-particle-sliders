@@ -1,3 +1,4 @@
-include LICENSE README.md PROVENANCE.json EXTRACTION.md MODERN-CORE.md tiny-config.json tiny-profile.json
+include LICENSE README.md PROVENANCE.json EXTRACTION.md MODERN-CORE.md NATIVE-CUDA.md LEARNING-RATES.md tiny-config.json tiny-profile.json
 recursive-include tests *.py
 recursive-include docs *.json *.md
+recursive-include docs/archive/stage-c-v2 *.py *.hndl *.toml

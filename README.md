@@ -1,6 +1,7 @@
 # Opt-in Cascade Stage C response cohort
 
 Explicit LR controls and qualification scope: [LEARNING-RATES.md](LEARNING-RATES.md).
+Explicit CPU/CUDA execution profiles and native gates: [NATIVE-CUDA.md](NATIVE-CUDA.md).
 
 This standalone source export contains the shared-game alternative for the
 Cascade family originally rooted at
@@ -36,12 +37,13 @@ accepts any finite signed strength, with zero executing the exact frozen base.
 Attention projections `to_q/to_k/to_v/to_out.0` use a new rank-r, alpha/rank=1
 HNDL LoRA cohort. Historical c3lier/conv LoRA artifacts are not relabeled.
 
-Protocol `cascade-stage-c-spatial-response-hndl-v2` gives the critic an explicit
+Protocol `cascade-stage-c-spatial-response-hndl-v3` retains an explicit
 unit-ratio time coordinate: a features-only row view supplies `1000*r` to the
 shared helper, whose `/1000` normalization then yields `r`. Actual model rows
 and native calls retain the original ratio. The feature policy and activation
-policy are bound into training metadata and native identity. Old v1 packets
-cannot silently resume/rebind under v2. Use a fresh cohort/cache identity.
+policy are bound into training metadata and native identity. V3 also binds the
+explicit execution profile and checkpointing choice. Old v1/v2 packets cannot
+silently resume/rebind under v3. Use a fresh cohort/cache identity.
 
 The raw host retains its existing multiplier +1 outside explicit scale contexts;
 public evaluation/inference also default to strength +1 and retain the
