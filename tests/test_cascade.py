@@ -295,7 +295,7 @@ def test_unit_ratio_features_preserve_native_calls_cfg_and_zero():
             session.step()
             for i, item in enumerate(session.game.rows):
                 torch.testing.assert_close(session.evaluate(index=i, strength=0), item.neutral, rtol=0, atol=0)
-            assert session.binding.inference.identity['protocol'] == 'cascade-stage-c-spatial-response-hndl-v2'
+            assert session.binding.inference.identity['protocol'] == b.PROTOCOL
         assert set(ratios) == {.25, .75}
         assert [float(r.timestep) for r in rows] == [.25, .75]
     finally:
@@ -483,7 +483,7 @@ def test_old_native_protocol_rejected_before_allocation(monkeypatch):
     artifact['specification']['identity']['protocol'] = 'cascade-stage-c-spatial-response-hndl-v1'
     artifact['sha256'] = b._hash({key: value for key, value in artifact.items() if key != 'sha256'})
     monkeypatch.setattr(b, 'load_model', lambda *args: pytest.fail('allocated before old protocol rejection'))
-    with pytest.raises(ValueError, match='requires explicit Cascade v2'):
+    with pytest.raises(ValueError, match='requires explicit Cascade v3'):
         open_inference(artifact, operation='response')
 
 

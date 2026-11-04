@@ -1,0 +1,57 @@
+{
+  "schema": "cascade-v3-cuda-software-proof-v1",
+  "tested_runtime_commit": "17e9f7b7c7b20b74b3a776df3ca54ac66e343a17",
+  "qualification": "Tiny random native Diffusers Stage C software; pretrained LR and full rendering qualification remain pending",
+  "CPU_tests": {
+    "installed": 52,
+    "CUDA_VISIBLE_DEVICES": "",
+    "pip_check": "passed"
+  },
+  "CUDA": {
+    "physical_uuid": "GPU-72c1b506-891d-b8bc-b353-e020585e1c47",
+    "model": "tiny random StableCascadeUNet",
+    "native_shape": [
+      1,
+      4,
+      4,
+      4
+    ],
+    "role_cap_gib": 2,
+    "max_torch_allocated_gib": 0.03297233581542969,
+    "execution": {
+      "profile": "native-cuda-fp32-math-v1",
+      "device": "cuda:0",
+      "base_precision": "float32",
+      "torch": "2.9.1+cu128",
+      "cuda": "12.8",
+      "flags": {
+        "deterministic": true,
+        "warn_only": false,
+        "matmul_tf32": false,
+        "cudnn_tf32": false,
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "flash_sdp": false,
+        "efficient_sdp": false,
+        "cudnn_sdp": false,
+        "math_sdp": true,
+        "cublas_workspace": ":4096:8"
+      }
+    },
+    "actual_generator_and_critic_changed": true,
+    "frozen_base_exact": true,
+    "direct_teacher_and_OFF_exact": true,
+    "fresh_process_2_vs_1_plus_1_state_and_metrics_exact": true,
+    "common_step_two_sha256": "be9487cdba68ecbf40bb89ab4cd35a6e1a35e226e5695ff4d58db6f3825bdb56",
+    "portable_raw_inference_exact_strengths": [
+      0,
+      0.5,
+      1
+    ]
+  },
+  "local_immutable_artifacts": "/mnt/nvme/sliders/experiments/lr-standardization-20261104/cascade/tiny-cuda-proof-v3",
+  "worker_sha256": "6d1fa10694f80a898f847ab2ad916ea6fe9b0e89e40a85d6036e025ade85e1bd",
+  "retained_failed_attempt": "tiny-cuda-proof-v1: source/cohort refusal from unordered tiny-constructor metadata; fixed by fully explicit constructor; packets never rebound",
+  "prior_software_proof": "tiny-cuda-proof-v2 passed, retained at its own source before explicit helper-source and accelerator-seeding guards",
+  "review": "Read-only secondary review; accelerator-wide seeding fixed, execution helper bytes bound;52 final CPU checks and fresh CUDA proof passed"
+}

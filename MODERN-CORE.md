@@ -70,3 +70,15 @@ Actual-source Claude RETURN/root review, full pretrained Stage C qualification,
 DDPMWuerstchen sampling plus Stage B/A rendering parity and native GPU/model
 quality remain pending. No model weights, GPU training, release or merge is
 included.
+
+
+## V3 explicit execution profile
+
+The source update from277ec1c retains the same core/PG/HG/HNDL locks and
+adapter-only mathematics. It binds CPUdefault or explicit strictFP32 CUDA
+execution, numerical flags and checkpointing choice in the newv3 native identity.
+The oldv2 implementation and receipts are retained byte-for-byte under
+`docs/archive/stage-c-v2/`; use its pinned Git source for old artifacts.
+See [NATIVE-CUDA.md](NATIVE-CUDA.md) for required flags and qualification gates.
+Installed CPU and native CUDA results for this update must be recorded separately
+from the older33-test source cohort above.

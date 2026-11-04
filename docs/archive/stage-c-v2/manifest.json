@@ -1,0 +1,15 @@
+{
+  "source": "277ec1c2ec12fd4d97e2fd28090561d385aa445f",
+  "protocol": "cascade-stage-c-spatial-response-hndl-v2",
+  "files": {
+    "src/particle_sliders_cascade/backend.py": "f9ddda99958ea279ffff3010b9c850aa42ff523230f6c84249d1c81a952cf562",
+    "src/particle_sliders_cascade/learning_rates.py": "c59e3813d8b651af1612e27e9d7a46b726e20662bd6d29d14b9bf8c2b793d57f",
+    "src/particle_sliders_cascade/lora.hndl": "e32094eb55b9178e8c42d7bf483a5915593d5fe6ae3cbca7478559cf80f8dc4c",
+    "pyproject.toml": "fe22d7371662f0c6d643454c94df22cdbc2e51da76ace0565b354bbe391eeace",
+    "README.md": "a1f4ac9c22d854e807d33efb61ca9e7ec45b10d5af47db14ff77dbc5da9c8a74",
+    "MODERN-CORE.md": "c6353903581fa51a0fc90c7f58eee45fc080331f331b4687fbde08ef60752ee9",
+    "PROVENANCE.json": "09ec46ada3ba2e34c494aaf56496d105d6762494573c8d39abad526056959e4b",
+    "tiny-config.json": "7a1da32fcbbe28a232ba77e63c3afc7f65597e4c287edeb0d3b1c5c4a29be0da",
+    "tiny-profile.json": "4481d798f5600c2f1f919b7ec2c550b5d56c0f76e77b49068927823717156bf6"
+  }
+}
