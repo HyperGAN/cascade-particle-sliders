@@ -1,0 +1,75 @@
+{
+  "schema": "cascade-pretrained-native1024-training-proof-and-unload-v1",
+  "verified_at": "2026-11-04T13:24:50.561543+00:00",
+  "qualification": "Actual pretrained native1024 mechanical/resource proof in exact frozen strict harness; no LR recommendation or native preservation qualification",
+  "runtime_commit": "17e9f7b7c7b20b74b3a776df3ca54ac66e343a17",
+  "worker_sha256": "6f88bdb548f5162ec312e49dc72dd334b34cfa24d4506b3a9115b21ef7f41978",
+  "launcher_sha256": "43d7e97afa1bef3fb9b6121b1d09786a391d66661dad82e3e66f2b25303c43f9",
+  "geometry": [
+    1,
+    16,
+    24,
+    24
+  ],
+  "image_geometry": [
+    1024,
+    1024
+  ],
+  "actual_updates": 2,
+  "recipe_horizon": 128,
+  "G": 0.0012,
+  "D": 0.018,
+  "bank": null,
+  "actual_generator_critic_changed": true,
+  "frozen_native_base_exact": true,
+  "all_training_native_teacher_OFF_parity_exact": true,
+  "actual_step0_full_packet_sha256": "7ff538b091e99f299503afdf60f83853d80b01d31a5084f2d6a74850a4928cc4",
+  "fresh_process_2_vs_1_plus_1_exact": true,
+  "final_checkpoint_sha256": "fa8fefa4fccfea3702894e81adee3e96a8c51824848b8f292a488f1ef0150967",
+  "raw_portable_inference_exact": true,
+  "development_fields": 18,
+  "strengths": [
+    0,
+    0.5,
+    1
+  ],
+  "confirmation_used": false,
+  "captured_data_hashes_exact": {
+    "training-cache.pt": "ece6acb6b4ee4c71c42d4729a7c6ab1592f829d89814d5873d39d9c076011d6f",
+    "evaluation-rows.pt": "7dc668435fd0dc8335fb54d3138cf36ad3a6c5dfc9fa69a8e0985f2a249445a7"
+  },
+  "mean_example_pooled_raw_development_relative_SSE": 0.9996814996058297,
+  "per_phase_peak_gib": {
+    "cache": 13.700995445251465,
+    "full": 15.478796005249023,
+    "partial": 15.467020034790039,
+    "resumed": 15.451382160186768,
+    "inference": 13.58366870880127
+  },
+  "process_cap_gib": 24,
+  "allocator_cap_gib": 23,
+  "peak_owned_nvml_mib": 16548,
+  "role_lock_reacquired": true,
+  "released_future_cap_gib": 24,
+  "numerical_scope": "Frozen worker binds highestFP32/reduction/env/UUID flags beyond the public product policy. Portable replay was verified under that exact worker; broader automatic product-policy admission is not established.",
+  "lease_scope": "Successful guardian remained alive throughout. Parent-only leases are retained in v1 receipt; subsequent workers must inherit lease FDs and validate parent liveness and data receipt at phase entry.",
+  "all_owned_workers_reaped_and_role_lease_released": true,
+  "native1024_OFF_teacher_diagnostic": {
+    "scope": "separate full native sampler and Stage B/A decoder diagnostic; no slider or preservation claim",
+    "worker_sha256": "b5dde9ce8d61055c9682e1f843dd89572b87c9a7024d1b645e3aef3e67457d38",
+    "seconds": 100.0049,
+    "peak_allocator_gib": 16.354316,
+    "visible": "Recognizable brass robot OFF and pixel-art robot teacher, with changed scene/proportions",
+    "prior_steps": 50,
+    "prior_CFG": 4,
+    "decoder_steps": 10,
+    "decoder_CFG": 0
+  },
+  "qualification_limits": [
+    "Exactly two training updates, not a useful learning-rate trial",
+    "Final confirmation corpus not encoded or used",
+    "No trained/published control-count change",
+    "Exact frozen harness policy is stronger than public runtime validator; no broader automatic admission claim",
+    "Native1024 OFF/teacher images are baseline/teacher evidence, not trained-slider preservation"
+  ]
+}
