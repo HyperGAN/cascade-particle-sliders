@@ -1,5 +1,7 @@
 # Opt-in Cascade Stage C response cohort
 
+Explicit LR controls and qualification scope: [LEARNING-RATES.md](LEARNING-RATES.md).
+
 This standalone source export contains the shared-game alternative for the
 Cascade family originally rooted at
 `HyperGAN/particle-sliders:conceptmod/textsliders/train_lora_cascade.py`.

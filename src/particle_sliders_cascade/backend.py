@@ -17,6 +17,7 @@ from particle_sliders.fibo_hndl import verified_builder, HNDLFieldCritic
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
 from particle_sliders.lifecycle import Binding, Capabilities
 from particle_sliders.pg09 import ConditionalPG09, PG_VERSION, PG_SOURCE_PROFILE, _hash, _identity
+from .learning_rates import recipe_overrides
 from particle_sliders.pg09_backends import AdapterParameters, FrozenResponseAdapter, ResponseRow
 from particle_sliders.pg09_images import image_condition_features
 from particle_sliders.response import ResponseBackend, ResponseCapabilities
@@ -83,11 +84,12 @@ def unit_ratio_condition_features(prepared):
 
 
 def validate(options):
-    verify_core_closure()
     allowed = {'dummy', 'model_dir', 'cache_file', 'cache_sha256', 'shape', 'rank',
-               'steps', 'batch', 'seed', 'ema_decay', 'base_precision'}
+               'steps', 'batch', 'seed', 'ema_decay', 'base_precision', 'lr','d_lr_mult','prior_lr_mult'}
     if set(options) - allowed:
         raise ValueError('unknown Cascade options: ' + str(sorted(set(options) - allowed)))
+    recipe_overrides(**{name:options.get(name) for name in ('lr','d_lr_mult','prior_lr_mult')})
+    verify_core_closure()
     shape = options.get('shape', [1, 4, 4, 4])
     if (not isinstance(shape, list) or len(shape) != 4 or shape[0] != 1
             or any(type(n) is not int or n < 1 for n in shape)):
@@ -334,6 +336,7 @@ def native(options, *, model=None):
 
 
 def prepare(options, *, model=None, rows=None):
+    recipe_overrides(**{name:options.get(name) for name in ('lr','d_lr_mult','prior_lr_mult')})
     verify_core_closure()
     with torch.random.fork_rng():
         torch.manual_seed(options.get('seed', 7))
@@ -363,7 +366,9 @@ def _prepare(options, *, model=None, rows=None):
         critic = HNDLFieldCritic(prepared[0].target.shape[1], conditions.shape[1],
                                  prepared[0].target.shape[2:], width=8)
         game = ConditionalPG09(response, prepared, critic, conditions=conditions,
-            total_steps=options.get('steps', 4), batch_size=options.get('batch', 2), seed=options.get('seed', 7))
+            total_steps=options.get('steps', 4), batch_size=options.get('batch', 2), seed=options.get('seed', 7),
+            recipe_overrides=recipe_overrides(**{name:options.get(name)
+                for name in ('lr','d_lr_mult','prior_lr_mult')}))
         configuration = {k: v for k, v in options.items() if k in ('dummy', 'shape', 'rank')}
         spec = INFERENCE.specification(response, model_identity=response.model_identity,
             protocol=PROTOCOL, configuration=configuration)
