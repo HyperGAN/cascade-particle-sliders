@@ -16,7 +16,8 @@ from torch import nn
 from particle_sliders.fibo_hndl import verified_builder, HNDLFieldCritic
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
 from particle_sliders.lifecycle import Binding, Capabilities
-from particle_sliders.pg09 import ConditionalPG09, PG_VERSION, PG_SOURCE_PROFILE, _hash, _identity
+from particle_sliders.pg095 import ConditionalPG095 as ConditionalPG09, PG_VERSION, PG_SOURCE_PROFILE
+from particle_sliders.pg09 import _hash, _identity
 from .learning_rates import recipe_overrides
 from .execution import CPU_PROFILE, CUDA_PROFILE, execution_policy
 from particle_sliders.pg09_backends import (AdapterParameters, FrozenResponseAdapter, ResponseRow,
@@ -25,10 +26,10 @@ from particle_sliders.pg09_images import image_condition_features
 from particle_sliders.response import ResponseBackend, ResponseCapabilities
 
 NAME = 'cascade_stage_c'
-PROTOCOL = 'cascade-stage-c-spatial-response-hndl-v3'
+PROTOCOL = 'cascade-stage-c-spatial-response-hndl-pg095-v4'
 GRAPH = Path(__file__).with_name('lora.hndl')
 EXECUTION_FILE = Path(__file__).with_name('execution.py')
-CORE_COMMIT = 'ddb41423bcefc1fe76cd94d0f9b367353b3ea137'
+CORE_COMMIT = '3dd672a7f9b8c169daef90fd63e4bb42b9ddc423'
 CORE_LOCK = Path(__file__).with_name('core-lock.json')
 FEATURE_POLICY = dict(version='cascade-unit-ratio-critic-v2', time_coordinate='native ratio r in [0,1]',
                       shared_helper_view='timestep=1000*r for features only; native row unchanged')
@@ -46,7 +47,7 @@ def verify_core_closure():
     """Lock every installed recursive source/data byte to the pinned Git tree."""
     expected = json.loads(CORE_LOCK.read_text())
     if (expected['schema'], expected['commit'], expected['distribution'], expected['version']) != (
-            'cascade-shared-core-closure-v2', CORE_COMMIT, 'particle-sliders-core', '0.12.0'):
+            'cascade-shared-core-closure-v2', CORE_COMMIT, 'particle-sliders-core', '0.13.0'):
         raise ValueError('Cascade core closure manifest contradicts the cohort')
     if version('particle-sliders-core') != expected['version']:
         raise ValueError('Cascade requires the locked shared-core distribution')

@@ -30,7 +30,7 @@ def test_installed_identity():
     import particle_sliders.pg09
     assert 'site-packages' in particle_sliders.pg09.__file__
     assert verified_builder()[1]['hndl_version'] == '0.10.0'
-    assert b.PG_VERSION == '0.9.4'
+    assert b.PG_VERSION == '0.9.5'
 
 
 def test_hndl_lora_outputs_vjps():
@@ -316,7 +316,7 @@ def test_recursive_core_closure_before_native_mutation(tmp_path, monkeypatch, mu
     elif mutation == 'data':
         (copy / 'particle_sliders/fibo_critic.hndl').write_text('altered graph\n')
     elif mutation == 'missing':
-        (copy / 'particle_sliders/pg094_release.json').unlink()
+        (copy / 'particle_sliders/pg095_release.json').unlink()
     elif mutation == 'compatibility-python':
         (copy / 'concept_slider_core/__init__.py').write_text('# altered compatibility namespace\n')
     else:
