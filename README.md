@@ -1,3 +1,5 @@
+**Current source: core 0.13.0 / ParticleGAN 0.9.5.** See [PG095 adoption](docs/pg095.md). Prior PG0.9.4 native mechanics and LR evidence below remain historical; this migration does not relabel them.
+
 # Opt-in Cascade Stage C response cohort
 
 Explicit LR controls and qualification scope: [LEARNING-RATES.md](LEARNING-RATES.md).
@@ -11,7 +13,7 @@ configuration, environment and artifact names are unchanged. Use a new
 environment and cohort/output directory. See `PROVENANCE.json` and `EXTRACTION.md`.
 
 **Modern candidate dependency:** the package pins reviewed shared core
-`ddb41423bcefc1fe76cd94d0f9b367353b3ea137`, PG 0.9.4,
+`3dd672a7f9b8c169daef90fd63e4bb42b9ddc423`, core0.13.0 / PG0.9.5,
 HyperGAN develop `5f368a3770cf5bdae0448995c9f76e29af8049f7`, HNDL 0.10.0.
 The shared core has CPU and bounded synthetic CUDA software-fixture qualification.
 This product still requires its own review/native qualification; no full-model or

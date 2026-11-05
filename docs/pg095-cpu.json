@@ -1,0 +1,26 @@
+{
+  "schema": "pg095-product-cpu-migration-checks-v1",
+  "core_commit": "3dd672a7f9b8c169daef90fd63e4bb42b9ddc423",
+  "core_version": "0.13.0",
+  "pg_version": "0.9.5",
+  "pg_profile": "release-0.9.5",
+  "environment": "isolated per-product owned core and PG installs; read-only Torch dependency spine",
+  "torch": "2.9.1+cu128",
+  "diffusers": "0.36.0",
+  "transformers": "4.57.1",
+  "CUDA_VISIBLE_DEVICES": "",
+  "native_models_loaded": false,
+  "native_GPU_or_LR_calibration_claimed": false,
+  "tests": {
+    "cascade": {
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 45.192,
+      "log_sha256": "826062aa2ad10dbb93cbf3fb0b72cdef08ce54cbe04123f03a83d45c030458ca"
+    }
+  },
+  "pip_check": "No broken requirements found",
+  "historical_artifacts_preserved": true
+}

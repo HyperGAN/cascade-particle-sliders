@@ -1,3 +1,5 @@
+**Current source is [PG0.9.5](docs/pg095.md).** The PG0.9.4 native receipts and measured rates below are historical; they do not calibrate the new source.
+
 # Explicit learning rates
 
 Direct preparation and common session API/JSON configuration accept `lr`,
