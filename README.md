@@ -23,7 +23,7 @@ old preview packets; no metadata relabeling or automatic migration is provided.
 
 The new cohort is an adapter-only positive-teacher GAN. Shared
 `ConditionalPG09` owns adversarial mathematics, regularization, optimizers and
-sampling; the common response lifecycle owns update/EMA/resume/export/cleanup.
+sampling; the common response lifecycle owns update/resume/export/cleanup.
 Actual HyperGAN-built HNDL graphs execute attention LoRA down/up projections and
 the shared HNDL FiLM spatial critic. The verified builder checks installed HNDL
 Python sources, exact HyperGAN clean-build provenance and builder closure.
@@ -85,6 +85,11 @@ python -m venv .venv-cascade
 The tiny fixture instantiates a random native Diffusers `StableCascadeUNet`,
 not pretrained weights. It downloads no model and selects no GPU:
 
+Disable model-weight EMA explicitly with `ema_decay=None` (`null` in JSON).
+Use raw current weights for training, evaluation, confirmation, exports and
+inference; do not add an EMA or checkpoint-averaging comparison. Historical
+EMA conformance receipts and compatibility tests remain historical evidence.
+
 ```python
 from particle_sliders.lifecycle import SessionConfig
 from particle_sliders.response import open_response
@@ -92,14 +97,14 @@ from particle_sliders.inference import open_inference
 from particle_sliders_cascade.backend import fixture_rows
 
 config = SessionConfig('cascade_stage_c', 'new-cascade-cpu-core-ddb',
-                       dummy=True, steps=4, ema_decay=.9)
+                       dummy=True, steps=4, ema_decay=None)
 with open_response(config) as session:
     session.train(stop_after=2)
     session.checkpoint('new-cascade/training.pt')
 with open_response(config, resume='new-cascade/training.pt') as session:
     session.train()
     response = session.evaluate(strength=-.5)
-    session.export_inference('new-cascade/native.pt', selection='ema')
+    session.export_inference('new-cascade/native.pt', selection='raw')
 with open_inference('new-cascade/native.pt', operation='response') as inference:
     response = inference.response(row=fixture_rows()[0], strength=.5)
 ```
@@ -108,7 +113,7 @@ The common CLI also executes the registered factory:
 ```bash
 particle-slider plan --profile tiny-profile.json --config tiny-config.json --out new-run --no-reporting
 particle-slider train --profile tiny-profile.json --config tiny-config.json --out new-run --no-reporting \
-  --checkpoint-every 2 --selection ema --export-format both
+  --checkpoint-every 2 --selection raw --export-format both
 ```
 
 The supplied profile is explicitly a CPU fixture and requires `dummy=true`;
