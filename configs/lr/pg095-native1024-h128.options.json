@@ -1,0 +1,19 @@
+{
+  "dummy": false,
+  "shape": [
+    1,
+    16,
+    24,
+    24
+  ],
+  "steps": 128,
+  "batch": 2,
+  "seed": 7,
+  "rank": 4,
+  "runtime_profile": "native-cuda-fp32-math-v1",
+  "device": "cuda:0",
+  "gradient_checkpointing": true,
+  "lr": 0.0012,
+  "d_lr_mult": 15.000000000000004,
+  "ema_decay": null
+}

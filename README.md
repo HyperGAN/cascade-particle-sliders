@@ -5,6 +5,8 @@
 Explicit LR controls and qualification scope: [LEARNING-RATES.md](LEARNING-RATES.md).
 Explicit CPU/CUDA execution profiles and native gates: [NATIVE-CUDA.md](NATIVE-CUDA.md).
 
+Research options and scoped evidence: [PG0.9.5 native Stage C measurement](docs/learning-rates-pg095-native1024.md). Fresh training uses explicit None and RAW; defaults are unchanged.
+
 This standalone source export contains the shared-game alternative for the
 Cascade family originally rooted at
 `HyperGAN/particle-sliders:conceptmod/textsliders/train_lora_cascade.py`.

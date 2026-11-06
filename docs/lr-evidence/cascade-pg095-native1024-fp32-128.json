@@ -1,0 +1,238 @@
+{
+  "schema": "particle-slider-measured-lr-recommendation-v3",
+  "status": "best_tested_heldout_measured_no_improvement",
+  "repository": "HyperGAN/cascade-particle-sliders",
+  "configuration_overrides": {
+    "lr": 0.0012,
+    "d_lr_mult": 15.000000000000004,
+    "ema_decay": null
+  },
+  "actual_optimizer_rates": {
+    "G": [
+      0.0012
+    ],
+    "D": [
+      0.018000000000000002,
+      0.018000000000000002,
+      0.018000000000000002,
+      0.018000000000000002
+    ]
+  },
+  "actual_rate_float_hex": {
+    "G": "0x1.3a92a30553261p-10",
+    "D": "0x1.26e978d4fdf3cp-6",
+    "d_lr_mult": "0x1.e000000000002p+3",
+    "P": null
+  },
+  "source": {
+    "product_commit": "cb63d7b0a653b889993ebe60ee29892e0bab90df",
+    "core_commit": "3dd672a7f9b8c169daef90fd63e4bb42b9ddc423",
+    "particlegan": "0.9.5",
+    "PG_source_profile": "release-0.9.5",
+    "model_family": "Stable Cascade Stage C prior",
+    "native_response_protocol": "cascade-stage-c-spatial-response-hndl-pg095-v4"
+  },
+  "scope": {
+    "cohort": "cascade095-native1024-common128-primary-v1",
+    "qualification": "Source-qualified native Stage C prior response research preset",
+    "native_pixels": [
+      1024,
+      1024
+    ],
+    "response_shape": [
+      1,
+      16,
+      24,
+      24
+    ],
+    "base_adapter_response_precision": "float32",
+    "rank": 4,
+    "batch": 2,
+    "seed": 7,
+    "schedule_horizon": 128,
+    "completed_updates": 128,
+    "adapter_only": true,
+    "particle_bank": null,
+    "critic": "HNDLFieldCritic width8",
+    "gradient_checkpointing": true,
+    "teacher_trajectory_steps": 50,
+    "teacher_CFG": 4.0,
+    "positions": [
+      5,
+      25,
+      45
+    ],
+    "confirmation_examples": 6,
+    "confirmation_fields": 18,
+    "measurement_excludes": "Stage B/A decode, rendered media and subjective image quality"
+  },
+  "numerical": {
+    "execution": {
+      "profile": "native-cuda-fp32-math-v1",
+      "device": "cuda:0",
+      "base_precision": "float32",
+      "torch": "2.9.1+cu128",
+      "cuda": "12.8",
+      "flags": {
+        "deterministic": true,
+        "warn_only": false,
+        "matmul_tf32": false,
+        "cudnn_tf32": false,
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "flash_sdp": false,
+        "efficient_sdp": false,
+        "cudnn_sdp": false,
+        "math_sdp": true,
+        "cublas_workspace": ":4096:8"
+      }
+    },
+    "extra": {
+      "precision": "highest",
+      "fp16_reduction": false,
+      "bf16_reduction": false,
+      "math_sdp_low_precision_reduction": false,
+      "overrides": {
+        "TORCH_ALLOW_TF32_CUBLAS_OVERRIDE": null,
+        "NVIDIA_TF32_OVERRIDE": null
+      }
+    }
+  },
+  "averaging": {
+    "SessionConfig_ema_decay": null,
+    "materialized_EMA_weights": false,
+    "training_selection": "raw",
+    "evaluation_selection": "raw",
+    "export_selection": "raw",
+    "inference_selection": "raw",
+    "weight_EMA_allowed": false,
+    "optimizer_scalar_statistics_unchanged": true
+  },
+  "metric": {
+    "name": "RAW equal-example pooled relative SSE",
+    "direction": "minimize",
+    "aggregation": "FP64 operands before subtraction; native CUDA FP64 squared sums across all coordinates and three positions within each example; math.fsum pooling; equal-example mean",
+    "teacher_only_membership_fixed_before_student": true,
+    "exact_zero_teacher_energy_undefined_no_epsilon": true,
+    "all_students_finite_including_excluded": true,
+    "development128": 1.0220477991542405,
+    "heldout_confirmation": 1.0226831513985883,
+    "confirmation_defined_examples": 6,
+    "confirmation_excluded_examples": 0,
+    "confirmation_per_example_relative_SSE": [
+      1.0779602569327504,
+      1.0212467515108683,
+      1.017874625967823,
+      1.0167568179033926,
+      1.0073793983477186,
+      0.9948810577289778
+    ],
+    "OFF": 1.0,
+    "teacher": 0.0,
+    "reversed_edit": 4.0,
+    "independent_saved_CUDA_scalar_pooling_exact": true,
+    "independent_CPU_tensor_score_diagnostic": 1.0226831513985886,
+    "CPU_minus_authoritative_diagnostic": 2.220446049250313e-16,
+    "CPU_accumulation_bound_passed": true,
+    "CPU_diagnostic_never_replaces_native_primary": true
+  },
+  "search": {
+    "kind": "G screen at fixed actual D; no particle bank",
+    "horizon": 128,
+    "rungs": [
+      32,
+      64,
+      128
+    ],
+    "ALLSIX64": [
+      {
+        "cell": 0,
+        "G": 0.0012,
+        "D": 0.018000000000000002,
+        "RAW64": 0.9962970520939264
+      },
+      {
+        "cell": 4,
+        "G": 0.00012,
+        "D": 0.018000000000000002,
+        "RAW64": 1.0019848598609717
+      },
+      {
+        "cell": 1,
+        "G": 0.004,
+        "D": 0.018000000000000002,
+        "RAW64": 1.0112909716320344
+      },
+      {
+        "cell": 2,
+        "G": 0.012,
+        "D": 0.018000000000000002,
+        "RAW64": 1.0853485088265367
+      },
+      {
+        "cell": 5,
+        "G": 0.0004,
+        "D": 0.018000000000000002,
+        "RAW64": 1.1155272012959812
+      },
+      {
+        "cell": 3,
+        "G": 0.036,
+        "D": 0.018000000000000002,
+        "RAW64": 1.6518577147390954
+      }
+    ],
+    "ALLAVAILABLE128": [
+      {
+        "cell": 0,
+        "G": 0.0012,
+        "D": 0.018000000000000002,
+        "RAW128": 1.0220477991542405,
+        "actual_source_plan_sha256": "55b8e2c5cce06d40c33c8f20666006911a90d71272cb558df38477bf8c279cd0"
+      },
+      {
+        "cell": 2,
+        "G": 0.012,
+        "D": 0.018000000000000002,
+        "RAW128": 1.098503889089752,
+        "actual_source_plan_sha256": "ba48acd14db821ad82f4836bb7c82e9e91c42be83942595483d8a7b4cb9f1ae0"
+      }
+    ],
+    "selected64": [
+      0
+    ],
+    "selected128": 0,
+    "finite_stage_activated": false,
+    "not_a_joint_or_global_optimum": true,
+    "final_used_for_tuning": false,
+    "training_counts_changed": false
+  },
+  "defaults_changed": false,
+  "limits": "Best tested for this source/model/cache/native1024 FP32/rank4/batch2/h128 fixed-D G screen and actual allavailable128. Finite final values above OFF remain measurements; no final-driven retuning. No universal optimum, joint G/D optimum, full image quality or other source/precision/geometry/horizon claim. Historical failed and unknown in-flight work remains immutable; no update-count changes or invented zero work. No weights, prompts, checkpoints or response tensors distributed.",
+  "evidence": {
+    "final_plan_sha256": "33d6b0d4cc7153da7848b9809d9579a33fb0cbd417b24c8933f9d38e05608030",
+    "training_plan_sha256": "55b8e2c5cce06d40c33c8f20666006911a90d71272cb558df38477bf8c279cd0",
+    "selected_actual_source_plan_sha256": "55b8e2c5cce06d40c33c8f20666006911a90d71272cb558df38477bf8c279cd0",
+    "selected128_freeze_sha256": "9ff75637933ac960cead2e59601315cdbcad9740cb01ea09ea30497d88d04b57",
+    "selected128_checkpoint_file_sha256": "9d75179985658a643b6438edffa29d83b7ca6d2db708990291d0ac78f6849696",
+    "selected_RAW_file_sha256": "9682bb7d7b1f1208afc561daf82c37b473db3905d14afaa335d65b92181aabe6",
+    "selection64_sha256": "6feb1094432b5a4d60097ef54010e5dccde33231416951b03164eb652447ebb6",
+    "selection128_sha256": "04cf7a363e541fb470bc0b6c7112c8e47f7fd429103753ab1d4301834896dcee",
+    "actual_native_final_supervisor_sha256": "4847ab0b2c14ec15a346966cc937ca51a3ec1371762ec607870687ff462aa7f1",
+    "independent_CPU_audit_sha256": "7ec38eb5b78dd7b11550359966f220ee9382f34f9dd14887cdfc13cfc2038a7d",
+    "independent_CPU_audit_completion_sha256": "c9dd3ca339a078eea204afd9cf7bdbbff8a1f59dce8dec0a55094847a77e9987",
+    "all_actual_final_and_audit_exits0_reaped": true,
+    "zero_new_PG_updates_in_final": true,
+    "pristine_teacher_before_selected_RAW": true,
+    "packet_RAW_network_and_native_public_replay_scope": "Native-qualified assertions; metadata publisher and CPU tensor audit do not independently recompute the checkpoint/network checksum.",
+    "historical_schema_only_manifest_access": true,
+    "original_before_first_semantic_access_freeze_sha256": "f7a0524b47bbc428e1f679ff76c2899324eaec2e2cbc4b538580a1265b316d9a",
+    "historical_schema_failure_audit_sha256": "6674025bfc12d1584372bbc8ee4aeaf46ee9fbdb34f9935f99c5e355236f8a96",
+    "historical_shape_diagnostic_sha256": "00a3e64bdfba1e2783580bec8f3b9d2a8657e6c7e47d9274c0e1a65182265b5c",
+    "exact_original_sealed_cohort_sha256": "64297d0c5ad22d5900d8aa667f399144cdd7938ee34d75214e26bc0f01488e78",
+    "ordered_seed_list_sha256": "5aab369c90d5ba382168dfc5c0fb6bab43a1ba6c0e4df1ddc632887559dd6567",
+    "same_selected_checkpoint_RAW_and_cohort_preserved": true,
+    "prior_final_model_encoder_teacher_student_optimizer_calls": 0,
+    "prior_final_score_produced": false
+  }
+}
